@@ -40,7 +40,7 @@ const Favoris = () => {
   const hasFavorites = favoritesProperties.length > 0;
   
   return (
-    <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
+    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
       <h1 className="text-2xl font-bold my-6">Vos favorites</h1>
       
       {hasFavorites ? (
