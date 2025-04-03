@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
   Heart,
@@ -11,11 +11,20 @@ import {
   Bed,
   Bath,
   Check,
-  UserCheck
+  UserCheck,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PropertyEquipment from '@/components/properties/PropertyEquipment';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const mockProperties = [
   {
@@ -48,25 +57,113 @@ const mockProperties = [
 const PropertyDetails = () => {
   const { id } = useParams();
   const property = mockProperties.find(p => p.id === id) || mockProperties[0];
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  // All images including the main one
+  const allImages = [property.imageUrl, ...(property.additionalImages || [])];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+  
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
+  };
+
+  const goToPreviousImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + allImages.length) % allImages.length);
+  };
   
   return (
     <div className="px-0 md:px-6 md:ml-16 pb-20 md:pb-10">
       <div className="relative w-full mb-4">
-        <img 
-          src={property.imageUrl} 
-          alt={property.title} 
-          className="w-full h-[300px] object-cover md:rounded-xl"
-        />
+        {/* Image Carousel for Mobile */}
+        <div className="relative md:hidden">
+          <div className="w-full h-[300px] relative">
+            {allImages.map((img, index) => (
+              <img 
+                key={index}
+                src={img} 
+                alt={`${property.title} - image ${index + 1}`} 
+                className={`absolute w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            ))}
+            
+            {/* Navigation buttons */}
+            <button 
+              onClick={goToPreviousImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white/90"
+            >
+              <ChevronLeft size={20} className="text-gray-700" />
+            </button>
+            <button 
+              onClick={goToNextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white/90"
+            >
+              <ChevronRight size={20} className="text-gray-700" />
+            </button>
+            
+            {/* Image indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-1">
+              {allImages.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`w-2 h-2 rounded-full ${
+                    index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                  }`}
+                ></div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        {/* Desktop Carousel */}
+        <div className="hidden md:block md:rounded-xl md:overflow-hidden">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {allImages.map((img, index) => (
+                <CarouselItem key={index}>
+                  <div className="h-[400px] relative">
+                    <img 
+                      src={img} 
+                      alt={`${property.title} - image ${index + 1}`}
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-4 z-10" />
+            <CarouselNext className="right-4 z-10" />
+          </Carousel>
+        </div>
+        
         <button 
           className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+          onClick={() => window.history.back()}
         >
-          <ArrowLeft size={20} className="text-gray-700" onClick={() => window.history.back()} />
+          <ArrowLeft size={20} className="text-gray-700" />
         </button>
-        <button 
-          className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
-        >
-          <Share2 size={20} className="text-gray-700" />
-        </button>
+        
+        <div className="absolute top-4 right-4 flex space-x-2">
+          <button 
+            className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+            onClick={toggleFavorite}
+          >
+            <Heart 
+              size={20} 
+              className={isFavorite ? "fill-red-500 text-red-500" : "text-gray-700"} 
+            />
+          </button>
+          <button 
+            className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+          >
+            <Share2 size={20} className="text-gray-700" />
+          </button>
+        </div>
       </div>
       
       <div className="px-4 md:px-0">
