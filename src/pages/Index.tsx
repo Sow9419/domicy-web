@@ -116,7 +116,7 @@ const Index = () => {
   const [activeFilter, setActiveFilter] = useState('tous');
   
   return (
-    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
+    <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
       <HeroSection services={heroServices} />
       
       <div className="my-6">

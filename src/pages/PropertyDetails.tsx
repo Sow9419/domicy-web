@@ -76,7 +76,7 @@ const PropertyDetails = () => {
   };
   
   return (
-    <div className="px-0 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
+    <div className="px-0 md:px-6 md:ml-16 pb-20 md:pb-10">
       <div className="relative w-full mb-4">
         {/* Image Carousel for Mobile */}
         <div className="relative md:hidden">

@@ -78,7 +78,7 @@ const PropertyCard = ({
   };
 
   return (
-    <div className="relative w-66 h-80 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+    <div className="relative w-72 h-80 rounded-lg overflow-hidden shadow-md bg-white hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
       {/* Image Carousel */}
       <div className="absolute inset-0 bg-gray-200">
         {allImages.map((image, index) => (
