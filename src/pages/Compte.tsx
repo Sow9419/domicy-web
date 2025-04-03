@@ -93,7 +93,7 @@ const SubscriptionCard = ({
 
 const Compte = () => {
   return (
-    <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
+    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
       <h1 className="text-2xl font-bold my-6">Mon Compte</h1>
       
       <div className="flex items-center p-6 bg-gray-50 rounded-xl mb-8">

@@ -113,7 +113,7 @@ const Explorer = () => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   
   return (
-    <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
+    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
       <div className="sticky top-0 pt-4 pb-2 bg-white z-30">
         <div className="flex items-center mb-4">
           <div className="flex-1 relative">
