@@ -19,19 +19,25 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t flex justify-around items-center z-50">
-        {navItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`flex flex-col items-center justify-center space-y-1 px-3 h-full ${
-              isActive(item.path) ? 'text-primary' : 'text-gray-500'
-            }`}
-          >
-            <item.icon size={20} />
-            <span className="text-xs">{item.name}</span>
-          </Link>
-        ))}
+      <div className="fixed bottom-0 left-0 right-0 h-16 bg-[#111827] border-t rounded-t-xl flex justify-around items-center z-50">
+        {navItems.map((item) => {
+          const active = isActive(item.path);
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="flex flex-col items-center justify-center space-y-1 px-3 h-full"
+            >
+              <item.icon 
+                size={20} 
+                className={active ? 'text-primary' : 'text-white'} 
+              />
+              <span className={`text-xs ${active ? 'text-primary' : 'text-white'}`}>
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     );
   }
@@ -50,7 +56,7 @@ const Sidebar = ({ isMobile = false }: { isMobile?: boolean }) => {
             to={item.path}
             className={`p-3 rounded-lg transition-colors ${
               isActive(item.path) 
-                ? 'text-sidebar-icon' 
+                ? 'text-primary' 
                 : 'text-white hover:text-sidebar-icon'
             }`}
           >

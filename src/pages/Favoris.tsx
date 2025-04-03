@@ -6,23 +6,23 @@ import PropertyCard from '@/components/properties/PropertyCard';
 const favoritesProperties = [
   {
     id: '3',
-    title: 'Villa avec piscine',
-    location: 'Bamako, ACI 2000',
+    title: 'Ramen Sapporo',
+    location: 'Bamako, Baco Djicoronie Acie',
     price: 350000,
     currency: 'FCFA',
     period: 'Mois',
-    rating: 4.9,
+    rating: 4.8,
     imageUrl: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
     isFavorite: true
   },
   {
     id: '8',
-    title: 'Loft moderne',
-    location: 'Bamako, ACI 2000',
+    title: 'Ramen Sapporo',
+    location: 'Bamako, Baco Djicoronie Acie',
     price: 220000,
     currency: 'FCFA',
     period: 'Mois',
-    rating: 4.8,
+    rating: 4.5,
     imageUrl: 'https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
     isAvailable: true,
     isFavorite: true
@@ -34,7 +34,7 @@ const Favoris = () => {
   
   return (
     <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
-      <h1 className="text-2xl font-bold my-6">Mes Favoris</h1>
+      <h1 className="text-2xl font-bold my-6">Vos favorites</h1>
       
       {hasFavorites ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

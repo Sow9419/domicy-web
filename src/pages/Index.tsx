@@ -1,9 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeroSection from '@/components/home/HeroSection';
 import PropertySection from '@/components/home/PropertySection';
 import FeatureCard from '@/components/home/FeatureCard';
+import FilterTabs from '@/components/home/FilterTabs';
 import { useIsMobile } from '@/hooks/use-mobile';
+
+const filterOptions = [
+  { id: 'tous', label: 'Tous' },
+  { id: 'appartement', label: 'Appartement' },
+  { id: 'moderne', label: 'Moderne' },
+  { id: 'local', label: 'Local' },
+  { id: 'doma', label: 'Doma' },
+];
 
 const mockProperties = [
   {
@@ -54,9 +64,9 @@ const mockProperties = [
 const verifiedProperties = [
   {
     id: '5',
-    title: 'Maison familiale',
+    title: 'Ramen Sapporo',
     location: 'Bamako, Baco Djicoroni',
-    price: 200000,
+    price: 120000,
     currency: 'FCFA',
     period: 'Mois',
     rating: 4.5,
@@ -65,41 +75,20 @@ const verifiedProperties = [
   },
   {
     id: '6',
-    title: 'Chambre simple',
+    title: 'Ramen Sapporo',
     location: 'Bamako, Baco Djicoroni',
-    price: 45000,
+    price: 120000,
     currency: 'FCFA',
     period: 'Mois',
     rating: 4.3,
     imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
     isAvailable: true
   },
-  {
-    id: '7',
-    title: 'Appart 3 chambres',
-    location: 'Bamako, Magnambougou',
-    price: 180000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.7,
-    imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2158&q=80',
-    isAvailable: true
-  },
-  {
-    id: '8',
-    title: 'Loft moderne',
-    location: 'Bamako, ACI 2000',
-    price: 220000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.8,
-    imageUrl: 'https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    isAvailable: true
-  }
 ];
 
 const Index = () => {
   const isMobile = useIsMobile();
+  const [activeFilter, setActiveFilter] = useState('tous');
   
   return (
     <div className="px-4 md:px-6 md:ml-16 pb-20 md:pb-10">
@@ -111,16 +100,24 @@ const Index = () => {
         buttonLink="/services"
       />
       
-      <PropertySection 
-        title="Recommandés pour vous"
-        properties={mockProperties}
-        viewAllLink="/explorer"
-      />
+      <div className="my-6">
+        <FilterTabs 
+          options={filterOptions}
+          activeId={activeFilter}
+          onChange={setActiveFilter}
+        />
+      </div>
       
       <PropertySection 
         title="Les hôtes vérifiés"
         properties={verifiedProperties}
         viewAllLink="/hotes-verifies"
+      />
+      
+      <PropertySection 
+        title="Recommandés pour vous"
+        properties={mockProperties}
+        viewAllLink="/explorer"
       />
       
       {!isMobile && (

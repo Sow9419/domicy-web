@@ -13,7 +13,7 @@ const Layout = () => {
       <Sidebar />
       <div className={`${isMobile ? '' : 'md:ml-16'}`}>
         <Header />
-        <main>
+        <main className={`${isMobile ? 'pb-16' : ''}`}>
           <Outlet />
         </main>
       </div>
