@@ -62,7 +62,7 @@ const HeroSection = ({ services }: HeroSectionProps) => {
         <CarouselContent>
           {services.map((service, index) => (
             <CarouselItem key={index}>
-              <div className="relative rounded-xl overflow-hidden h-[300px] md:h-[100vh]">
+              <div className="relative rounded-xl overflow-hidden h-[300px] md:h-[85vh]">
                 <div className="absolute inset-0">
                   <img 
                     src={service.imageUrl} 
