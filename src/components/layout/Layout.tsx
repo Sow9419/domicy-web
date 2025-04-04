@@ -1,23 +1,27 @@
 
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Layout = () => {
   const isMobile = useIsMobile();
+  const location = useLocation();
+  
+  // Vérifier si l'utilisateur est sur la page PropertyDetails
+  const isPropertyDetailsPage = location.pathname.includes('/propriete/');
   
   return (
     <div className="min-h-screen bg-white relative">
-      <Sidebar />
-      <div className={`${isMobile ? '' : 'md:ml-16'}`}>
-        <Header />
-        <main className={`${isMobile ? 'pb-16' : ''}`}>
+      {!isPropertyDetailsPage && <Sidebar />}
+      <div className={`${isMobile && !isPropertyDetailsPage ? '' : isPropertyDetailsPage ? '' : 'md:ml-16'}`}>
+        {!isPropertyDetailsPage && <Header />}
+        <main className={`${isMobile && !isPropertyDetailsPage ? 'pb-16' : ''}`}>
           <Outlet />
         </main>
       </div>
-      {isMobile && <Sidebar isMobile={true} />}
+      {isMobile && !isPropertyDetailsPage && <Sidebar isMobile={true} />}
     </div>
   );
 };
