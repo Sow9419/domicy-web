@@ -1,4 +1,5 @@
 
+// Importation des dépendances nécessaires
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { 
@@ -26,6 +27,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+// Données mockées pour le développement
 const mockProperties = [
   {
     id: '1',
@@ -54,19 +56,26 @@ const mockProperties = [
   }
 ];
 
+// Composant principal pour afficher les détails d'une propriété
 const PropertyDetails = () => {
+  // Récupération de l'ID de la propriété depuis l'URL
   const { id } = useParams();
+  // Recherche de la propriété correspondante dans les données mockées
   const property = mockProperties.find(p => p.id === id) || mockProperties[0];
+  // État pour gérer le statut favori
   const [isFavorite, setIsFavorite] = useState(false);
   
-  // All images including the main one
+  // Tableau regroupant toutes les images (principale + additionnelles)
   const allImages = [property.imageUrl, ...(property.additionalImages || [])];
+  // État pour suivre l'index de l'image actuellement affichée
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
+  // Fonction pour basculer l'état favori
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
   };
   
+  // Fonctions de navigation dans le carrousel d'images
   const goToNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
   };
@@ -77,8 +86,9 @@ const PropertyDetails = () => {
   
   return (
     <div className="px-0 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
+      {/* Section du carrousel d'images */}
       <div className="relative w-full mb-4">
-        {/* Image Carousel for Mobile */}
+        {/* Carrousel mobile avec navigation tactile */}
         <div className="relative md:hidden">
           <div className="w-full h-[300px] relative">
             {allImages.map((img, index) => (
@@ -92,7 +102,7 @@ const PropertyDetails = () => {
               />
             ))}
             
-            {/* Navigation buttons */}
+            {/* Boutons de navigation du carrousel mobile */}
             <button 
               onClick={goToPreviousImage}
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white/90"
@@ -106,7 +116,7 @@ const PropertyDetails = () => {
               <ChevronRight size={20} className="text-gray-700" />
             </button>
             
-            {/* Image indicators */}
+            {/* Indicateurs de position dans le carrousel */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-1">
               {allImages.map((_, index) => (
                 <div 
@@ -120,7 +130,7 @@ const PropertyDetails = () => {
           </div>
         </div>
         
-        {/* Desktop Carousel */}
+        {/* Carrousel version desktop avec composant Carousel */}
         <div className="hidden md:block md:rounded-xl md:overflow-hidden">
           <Carousel className="w-full">
             <CarouselContent>
@@ -141,6 +151,7 @@ const PropertyDetails = () => {
           </Carousel>
         </div>
         
+        {/* Bouton de retour */}
         <button 
           className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
           onClick={() => window.history.back()}
@@ -148,6 +159,7 @@ const PropertyDetails = () => {
           <ArrowLeft size={20} className="text-gray-700" />
         </button>
         
+        {/* Boutons d'action (favoris et partage) */}
         <div className="absolute top-4 right-4 flex space-x-2">
           <button 
             className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
@@ -166,13 +178,16 @@ const PropertyDetails = () => {
         </div>
       </div>
       
+      {/* Section des informations de la propriété */}
       <div className="px-4 md:px-0">
+        {/* Titre et localisation */}
         <h1 className="text-2xl font-bold">{property.title}</h1>
         <div className="flex items-center mt-2 text-gray-600">
           <MapPin size={16} className="mr-1" />
           <span>{property.location}</span>
         </div>
         
+        {/* Prix et notation */}
         <div className="flex items-center justify-between mt-3">
           <div>
             <span className="text-2xl font-bold">{property.price.toLocaleString()} {property.currency}</span>
@@ -185,6 +200,7 @@ const PropertyDetails = () => {
           </div>
         </div>
         
+        {/* Caractéristiques principales */}
         <div className="flex flex-wrap gap-4 mt-4">
           <div className="flex items-center">
             <Bed size={20} className="text-gray-500 mr-2" />
@@ -202,6 +218,7 @@ const PropertyDetails = () => {
           ))}
         </div>
         
+        {/* Onglets d'information */}
         <Tabs defaultValue="description" className="mt-6">
           <TabsList className="w-full justify-start border-b rounded-none bg-transparent">
             <TabsTrigger 
@@ -223,6 +240,8 @@ const PropertyDetails = () => {
               Avis
             </TabsTrigger>
           </TabsList>
+          
+          {/* Contenu des onglets */}
           <TabsContent value="description">
             <div className="mt-4">
               <p className="text-gray-700">{property.description}</p>
@@ -238,6 +257,7 @@ const PropertyDetails = () => {
           </TabsContent>
         </Tabs>
         
+        {/* Informations sur le propriétaire */}
         <div className="mt-8 pb-5 mb-6 border-b">
           <div className="flex items-center">
             <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
@@ -253,6 +273,7 @@ const PropertyDetails = () => {
           </div>
         </div>
         
+        {/* Boutons de contact */}
         <div className="grid grid-cols-2 gap-4 my-6">
           <Button className="bg-[#FFC107] hover:bg-amber-600 text-black font-semibold py-3">
             <Phone size={18} className="mr-2" />

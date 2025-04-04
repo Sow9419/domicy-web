@@ -119,14 +119,6 @@ const Index = () => {
     <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
       <HeroSection services={heroServices} />
       
-      <div className="my-6">
-        <FilterTabs 
-          options={filterOptions}
-          activeId={activeFilter}
-          onChange={setActiveFilter}
-        />
-      </div>
-      
       <PropertySection 
         title="Les hôtes vérifiés"
         properties={verifiedProperties}

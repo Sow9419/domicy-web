@@ -3,6 +3,7 @@ import { Search, Sliders, MapPin, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import PropertyCard from '@/components/properties/PropertyCard';
+import FilterTabs from '@/components/home/FilterTabs';
 
 const mockProperties = [
   {
@@ -108,9 +109,19 @@ const locationCategories = [
   'Bamako, Hippodrome'
 ];
 
+const filterOptions = [
+  { id: 'tous', label: 'Tous' },
+  { id: 'appartement', label: 'Appartement' },
+  { id: 'maison', label: 'Maison' },
+  { id: 'villa', label: 'Villa' },
+  { id: 'studio', label: 'Studio' },
+  { id: 'chambre', label: 'Chambre' },
+];
+
 const Explorer = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState('tous');
   
   return (
     <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
@@ -233,9 +244,30 @@ const Explorer = () => {
         )}
       </div>
       
+      <div className="my-4">
+        <FilterTabs 
+          options={filterOptions}
+          activeId={activeFilter}
+          onChange={setActiveFilter}
+        />
+      </div>
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
         {mockProperties
-          .filter(property => !selectedLocation || property.location === selectedLocation)
+          .filter(property => {
+            // Filtre par localisation
+            const locationMatch = !selectedLocation || property.location === selectedLocation;
+            
+            // Filtre par type (basé sur le titre pour cet exemple)
+            const typeMatch = activeFilter === 'tous' || 
+              (activeFilter === 'appartement' && property.title.toLowerCase().includes('appartement')) ||
+              (activeFilter === 'maison' && property.title.toLowerCase().includes('maison')) ||
+              (activeFilter === 'villa' && property.title.toLowerCase().includes('villa')) ||
+              (activeFilter === 'studio' && property.title.toLowerCase().includes('studio')) ||
+              (activeFilter === 'chambre' && property.title.toLowerCase().includes('chambre'));
+              
+            return locationMatch && typeMatch;
+          })
           .map(property => (
             <PropertyCard key={property.id} {...property} />
           ))}
