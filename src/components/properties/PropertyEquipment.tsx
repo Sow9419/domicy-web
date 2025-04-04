@@ -14,55 +14,32 @@ const Equipment = ({ type, label }: EquipmentProps) => {
   const getIcon = () => {
     switch (type) {
       case 'tv':
-        return <Tv size={20} className="text-amber-500" />;
+        return <Tv size={20} className="text-primary" />;
       case 'garage':
-        return <Car size={20} className="text-amber-500" />;
+        return <Car size={20} className="text-primary" />;
       case 'meuble':
-        return <Home size={20} className="text-green-500" />;
+        return <Home size={20} className="text-primary" />;
       case 'clim':
-        return <Wind size={20} className="text-amber-500" />;
+        return <Wind size={20} className="text-primary" />;
       case 'frigo':
-        return <Snowflake size={20} className="text-green-500" />;
+        return <Snowflake size={20} className="text-primary" />;
       case 'piscine':
-        return <Waves size={20} className="text-amber-500" />;
+        return <Waves size={20} className="text-primary" />;
       case 'cafe':
-        return <Coffee size={20} className="text-amber-500" />;
+        return <Coffee size={20} className="text-primary" />;
       case 'cuisine':
-        return <Utensils size={20} className="text-amber-500" />;
+        return <Utensils size={20} className="text-primary" />;
       default:
         return <Home size={20} className="text-gray-500" />;
     }
   };
 
-  const getIconBackground = () => {
-    switch (type) {
-      case 'tv':
-        return "bg-amber-100";
-      case 'garage':
-        return "bg-amber-100";
-      case 'meuble':
-        return "bg-green-100";
-      case 'clim':
-        return "bg-amber-100";
-      case 'frigo':
-        return "bg-green-100";
-      case 'piscine':
-        return "bg-amber-100";
-      case 'cafe':
-        return "bg-amber-100";
-      case 'cuisine':
-        return "bg-amber-100";
-      default:
-        return "bg-gray-100";
-    }
-  };
-
   return (
-    <div className="flex items-center p-4 bg-white rounded-full shadow-md">
-      <div className={`${getIconBackground()} rounded-full p-2 mr-3 flex items-center justify-center`}>
+    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm border border-gray-100">
+      <div className="bg-primary/10 rounded-full p-2 mr-3 flex items-center justify-center">
         {getIcon()}
       </div>
-      <span className="text-sm font-medium">{label}</span>
+      <span className="text-sm font-medium text-gray-700">{label}</span>
     </div>
   );
 };
@@ -82,14 +59,13 @@ const PropertyEquipment = () => {
   return (
     <div className="my-6">
       <h2 className="text-xl font-semibold mb-4">Équipements</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         {equipments.map((equipment, index) => (
           <Equipment key={index} type={equipment.type} label={equipment.label} />
         ))}
       </div>
     </div>
   );
-
 };
 
 export default PropertyEquipment;
