@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Heart, MapPin, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, MapPin, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PropertyProps } from './PropertyCard';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface PropertyStorieProps {
   property: PropertyProps;
@@ -86,13 +86,13 @@ const PropertyStorieSection = ({
       </div>
       
       <div className="relative">
-        <div className="overflow-x-auto pb-4 scrollbar-hide">
-          <div className="flex space-x-4">
+        <ScrollArea className="w-full" orientation="horizontal">
+          <div className="flex gap-4 pb-4 min-w-full">
             {properties.map((property) => (
               <PropertyStorie key={property.id} property={property} />
             ))}
           </div>
-        </div>
+        </ScrollArea>
       </div>
     </section>
   );
