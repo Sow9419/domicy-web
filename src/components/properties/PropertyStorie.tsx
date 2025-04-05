@@ -86,7 +86,7 @@ const PropertyStorieSection = ({
       </div>
       
       <div className="relative">
-        <div className="overflow-x-auto pb-4">
+        <div className="overflow-x-auto pb-4 scrollbar-hide">
           <div className="flex space-x-4">
             {properties.map((property) => (
               <PropertyStorie key={property.id} property={property} />
