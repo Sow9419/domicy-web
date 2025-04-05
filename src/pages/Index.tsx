@@ -5,7 +5,6 @@ import HeroSection from '@/components/home/HeroSection';
 import PropertySection from '@/components/home/PropertySection';
 import PropertyStorieSection from '@/components/properties/PropertyStorie';
 import FeatureCard from '@/components/home/FeatureCard';
-import FilterTabs from '@/components/home/FilterTabs';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const filterOptions = [
@@ -107,6 +106,64 @@ const verifiedProperties = [
     imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
     isAvailable: true
   },
+  {
+    id: '9',
+    title: 'Studio Élégant',
+    location: 'Bamako, Magnambougou',
+    price: 85000,
+    currency: 'FCFA',
+    period: 'Mois',
+    rating: 4.4,
+    imageUrl: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2158&q=80',
+    isAvailable: true,
+    isFavorite: false
+  },
+  {
+    id: '10',
+    title: 'Appartement Familial',
+    location: 'Bamako, Hippodrome',
+    price: 175000,
+    currency: 'FCFA',
+    period: 'Mois',
+    rating: 4.7,
+    imageUrl: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+    isAvailable: true,
+    isFavorite: true
+  },
+  {
+    id: '11',
+    title: 'Maison Traditionnelle',
+    location: 'Bamako, Lafiabougou',
+    price: 130000,
+    currency: 'FCFA',
+    period: 'Mois',
+    rating: 4.2,
+    imageUrl: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+    isAvailable: true
+  },
+  {
+    id: '12',
+    title: 'Loft Contemporain',
+    location: 'Bamako, Centre-ville',
+    price: 195000,
+    currency: 'FCFA',
+    period: 'Mois',
+    rating: 4.8,
+    imageUrl: 'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+    isAvailable: true
+  },
+  {
+    id: '13',
+    title: 'Chambre Cosy',
+    location: 'Bamako, Kalaban Coura',
+    price: 60000,
+    currency: 'FCFA',
+    period: 'Mois',
+    rating: 4.1,
+    imageUrl: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2339&q=80',
+    isAvailable: true,
+    isFavorite: false
+  }
 ];
 
 // Données pour le carrousel de services
@@ -139,20 +196,24 @@ const Index = () => {
   const [activeFilter, setActiveFilter] = useState('tous');
   
   return (
-    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
+    <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-16 md:pb-8">
       <HeroSection services={heroServices} />
       
-      <PropertyStorieSection 
-        title="Les hôtes vérifiés"
-        properties={verifiedProperties}
-        viewAllLink="/hotes-verifies"
-      />
+      <div className="mt-2">
+        <PropertyStorieSection 
+          title="Les hôtes vérifiés"
+          properties={verifiedProperties}
+          viewAllLink="/hotes-verifies"
+        />
+      </div>
       
-      <PropertySection 
-        title="Recommandés pour vous"
-        properties={mockProperties}
-        viewAllLink="/explorer"
-      />
+      <div className="mt-2">
+        <PropertySection 
+          title="Recommandés pour vous"
+          properties={mockProperties}
+          viewAllLink="/explorer"
+        />
+      </div>
       
       {!isMobile && (
         <div className="mt-10 mb-6">

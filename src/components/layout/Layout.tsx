@@ -17,7 +17,7 @@ const Layout = () => {
       {!isPropertyDetailsPage && <Sidebar />}
       <div className={`${isMobile && !isPropertyDetailsPage ? '' : isPropertyDetailsPage ? '' : 'md:ml-16'}`}>
         {!isPropertyDetailsPage && <Header />}
-        <main className={`${isMobile && !isPropertyDetailsPage ? 'pb-16' : ''}`}>
+        <main className={`${isMobile && !isPropertyDetailsPage ? 'pb-16' : ''} ${!isPropertyDetailsPage ? 'pt-16 md:pt-20' : ''}`}>
           <Outlet />
         </main>
       </div>

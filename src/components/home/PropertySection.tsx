@@ -11,8 +11,8 @@ interface PropertySectionProps {
 
 const PropertySection = ({ title, properties, viewAllLink }: PropertySectionProps) => {
   return (
-    <section className="py-6">
-      <div className="flex justify-between items-center mb-4">
+    <section className="py-3">
+      <div className="flex justify-between items-center mb-3">
         <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
         <Link to={viewAllLink} className="text-primary font-medium text-sm">
           Voir tout

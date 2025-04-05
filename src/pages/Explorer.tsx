@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Search, Sliders, MapPin, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import React, { useState, useEffect } from 'react';
+import { MapPin, X } from 'lucide-react';
 import PropertyCard from '@/components/properties/PropertyCard';
 import FilterTabs from '@/components/home/FilterTabs';
+import { filterState } from '@/components/layout/Header';
 
 const mockProperties = [
   {
@@ -119,114 +118,29 @@ const filterOptions = [
 ];
 
 const Explorer = () => {
-  const [showFilters, setShowFilters] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  // Utiliser l'état global pour la localisation
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(filterState.selectedLocation);
   const [activeFilter, setActiveFilter] = useState('tous');
+  
+  // Synchroniser l'état local avec l'état global
+  useEffect(() => {
+    setSelectedLocation(filterState.selectedLocation);
+    
+    // Mettre à jour l'état global lorsque l'état local change
+    const originalSetSelectedLocation = filterState.setSelectedLocation;
+    filterState.setSelectedLocation = (location: string | null) => {
+      setSelectedLocation(location);
+      originalSetSelectedLocation(location);
+    };
+    
+    return () => {
+      filterState.setSelectedLocation = originalSetSelectedLocation;
+    };
+  }, [filterState.selectedLocation]);
   
   return (
     <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
-      <div className="sticky top-0 pt-4 pb-2 bg-white z-30">
-        <div className="flex items-center mb-4">
-          <div className="flex-1 relative">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-              <Search size={18} />
-            </div>
-            <Input 
-              type="text" 
-              placeholder="Rechercher un logement" 
-              className="w-full pl-10 pr-10 py-2 rounded-full border border-gray-200"
-            />
-          </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="ml-2 h-10 w-10 text-gray-700"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <Sliders size={20} />
-          </Button>
-        </div>
-        
-        {showFilters && (
-          <div className="bg-white rounded-lg shadow-lg p-4 mb-4 animate-fade-in">
-            <div className="mb-4">
-              <h3 className="font-medium mb-2">Localisation</h3>
-              <div className="flex flex-wrap gap-2">
-                {locationCategories.map(location => (
-                  <button
-                    key={location}
-                    onClick={() => setSelectedLocation(prev => prev === location ? null : location)}
-                    className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm ${
-                      selectedLocation === location
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    <MapPin size={14} className="mr-1" />
-                    {location}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="mb-4">
-              <h3 className="font-medium mb-2">Prix</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm text-gray-600 mb-1 block">Min</label>
-                  <Input 
-                    type="number" 
-                    placeholder="Min" 
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm text-gray-600 mb-1 block">Max</label>
-                  <Input 
-                    type="number" 
-                    placeholder="Max" 
-                    className="w-full"
-                  />
-                </div>
-              </div>
-            </div>
-            
-            <div className="mb-4">
-              <h3 className="font-medium mb-2">Type de logement</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Appartement', 'Maison', 'Villa', 'Studio', 'Chambre'].map(type => (
-                  <button
-                    key={type}
-                    className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
-            
-            <div className="flex justify-between">
-              <Button 
-                variant="outline"
-                onClick={() => {
-                  setSelectedLocation(null);
-                  setShowFilters(false);
-                }}
-                className="text-sm"
-              >
-                <X size={16} className="mr-1" />
-                Réinitialiser
-              </Button>
-              <Button 
-                className="text-sm bg-primary hover:bg-primary-hover"
-                onClick={() => setShowFilters(false)}
-              >
-                Appliquer les filtres
-              </Button>
-            </div>
-          </div>
-        )}
-        
+      <div className="sticky top-16 md:top-20 pt-4 pb-2 bg-white z-30">
         {selectedLocation && (
           <div className="flex items-center mb-2">
             <div className="text-sm text-gray-600 mr-2">Filtres:</div>
@@ -234,7 +148,7 @@ const Explorer = () => {
               <MapPin size={12} className="mr-1" />
               {selectedLocation}
               <button 
-                onClick={() => setSelectedLocation(null)}
+                onClick={() => filterState.setSelectedLocation(null)}
                 className="ml-1 text-primary hover:text-primary-hover"
               >
                 <X size={12} />
@@ -252,7 +166,7 @@ const Explorer = () => {
         />
       </div>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mt-4">
         {mockProperties
           .filter(property => {
             // Filtre par localisation

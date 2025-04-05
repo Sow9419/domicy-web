@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Heart, MapPin, Star } from 'lucide-react';
+import { Heart, MapPin, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { PropertyProps } from './PropertyCard';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 interface PropertyStorieProps {
   property: PropertyProps;
@@ -59,7 +59,7 @@ const PropertyStorie = ({ property }: PropertyStorieProps) => {
           </div>
           <div className="flex items-center">
             <Star size={12} fill="currentColor" className="text-yellow-500" />
-            <span className="text-xs ml-1">{property.rating} Notation</span>
+            <span className="text-xs ml-1">{property.rating}</span>
           </div>
         </div>
       </div>
@@ -77,21 +77,23 @@ const PropertyStorieSection = ({
   viewAllLink: string;
 }) => {
   return (
-    <section className="py-4">
-      <div className="flex justify-between items-center mb-3">
+    <section className="py-2">
+      <div className="flex justify-between items-center mb-2">
         <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
         <Link to={viewAllLink} className="text-primary font-medium text-sm">
           Voir tout
         </Link>
       </div>
       
-      <ScrollArea className="w-full whitespace-nowrap pb-4">
-        <div className="flex gap-3 pb-1 pl-0.5">
-          {properties.map((property) => (
-            <PropertyStorie key={property.id} property={property} />
-          ))}
+      <div className="relative">
+        <div className="overflow-x-auto pb-4">
+          <div className="flex space-x-4">
+            {properties.map((property) => (
+              <PropertyStorie key={property.id} property={property} />
+            ))}
+          </div>
         </div>
-      </ScrollArea>
+      </div>
     </section>
   );
 };
