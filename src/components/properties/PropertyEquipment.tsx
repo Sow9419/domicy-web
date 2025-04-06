@@ -40,11 +40,11 @@ const Equipment = ({ type, label }: EquipmentProps) => {
   };
 
   return (
-    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm border border-gray-100">
+    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm border border-gray-100 w-full">
       <div className="bg-primary/10 rounded-full p-1.5 mr-2 flex items-center justify-center">
         {getIcon()}
       </div>
-      <span className="text-xs font-medium text-gray-700">{label}</span>
+      <span className="text-xs font-medium text-gray-700 truncate">{label}</span>
     </div>
   );
 };
@@ -66,7 +66,7 @@ const PropertyEquipment = () => {
   return (
     <div className="my-6">
       <h2 className="text-xl font-semibold mb-4">Équipements</h2>
-      <div className="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+      <div className="grid !grid-cols-2 gap-2 md:grid-cols-4 md:gap-3" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
         {equipments.map((equipment, index) => (
           <Equipment key={index} type={equipment.type} label={equipment.label} />
         ))}
