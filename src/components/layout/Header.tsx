@@ -185,19 +185,28 @@ const Header = () => {
         )}
       </div>
       
-      <div className="hidden md:block">
+      <div className="hidden md:flex items-center space-x-6">
         <Link 
           to="/ajouter-logement"
           className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
         >
           Mettre mon logement sur Domicy
         </Link>
-      </div>
-      
-      <div className="ml-4 md:ml-6">
+        
         <Link 
           to="/compte"
           className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100"
+          aria-label="Accéder à mon compte"
+        >
+          <User size={20} className="text-gray-600" />
+        </Link>
+      </div>
+      
+      <div className="md:hidden ml-4 flex items-center">
+        <Link 
+          to="/compte"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100"
+          aria-label="Accéder à mon compte"
         >
           <User size={20} className="text-gray-600" />
         </Link>
