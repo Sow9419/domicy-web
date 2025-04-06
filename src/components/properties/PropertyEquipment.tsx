@@ -35,7 +35,7 @@ const Equipment = ({ type, label }: EquipmentProps) => {
   };
 
   return (
-    <div className="flex items-center p-3 bg-white rounded-lg shadow-sm border border-gray-100">
+    <div className="flex items-center p-1 bg-white rounded-full shadow-md border border-gray-100">
       <div className="bg-primary/10 rounded-full p-2 mr-3 flex items-center justify-center">
         {getIcon()}
       </div>
