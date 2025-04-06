@@ -3,10 +3,7 @@ import React from 'react';
 import { 
   Tv, Car, Home, Snowflake, 
   Coffee, Wind, Utensils, Waves,
-  Wifi, 
 } from 'lucide-react';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Card } from "@/components/ui/card";
 
 interface EquipmentProps {
   type: string;
@@ -32,29 +29,25 @@ const Equipment = ({ type, label }: EquipmentProps) => {
         return <Coffee size={20} className="text-primary" />;
       case 'cuisine':
         return <Utensils size={20} className="text-primary" />;
-      case 'wifi':
-        return <Wifi size={20} className="text-primary" />;
       default:
         return <Home size={20} className="text-gray-500" />;
     }
   };
 
   return (
-    <div className="flex items-center p-2 bg-white rounded-lg shadow-sm border border-gray-100 w-full">
-      <div className="bg-primary/10 rounded-full p-1.5 mr-2 flex items-center justify-center">
+    <div className="flex items-center p-1 bg-white rounded-full shadow-md border border-gray-100">
+      <div className="bg-primary/10 rounded-full p-2 mr-3 flex items-center justify-center">
         {getIcon()}
       </div>
-      <span className="text-xs font-medium text-gray-700 truncate">{label}</span>
+      <span className="text-sm font-medium text-gray-700">{label}</span>
     </div>
   );
 };
 
 const PropertyEquipment = () => {
-  const isMobile = useIsMobile();
-  
   const equipments = [
     { type: 'garage', label: 'Voiture Garage' },
-    { type: 'wifi', label: 'Wi-Fi Haut Débit' },
+    { type: 'meuble', label: 'Meuble Déco' },
     { type: 'tv', label: 'TV Smart 4K' },
     { type: 'clim', label: 'Climatisation' },
     { type: 'frigo', label: 'Réfrigérateur' },
@@ -66,7 +59,7 @@ const PropertyEquipment = () => {
   return (
     <div className="my-6">
       <h2 className="text-xl font-semibold mb-4">Équipements</h2>
-      <div className="grid !grid-cols-2 gap-2 md:grid-cols-4 md:gap-3" style={{ gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' }}>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
         {equipments.map((equipment, index) => (
           <Equipment key={index} type={equipment.type} label={equipment.label} />
         ))}
