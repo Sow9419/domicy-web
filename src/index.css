@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -78,9 +77,14 @@
   }
 }
 
+/* Classe spécifique pour la grille d'équipements qui doit toujours rester en grille */
+.equipment-grid {
+  display: grid !important;
+}
+
 /* Pour améliorer la compatibilité avec les appareils bas de gamme */
 @media (max-width: 640px) {
-  .grid {
+  .grid:not(.equipment-grid) {
     display: flex;
     flex-direction: column;
   }
@@ -103,8 +107,8 @@ img.lazy-load.loaded {
 
 /* Cacher la barre de défilement tout en permettant le défilement */
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE et Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE et Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -113,5 +117,9 @@ img.lazy-load.loaded {
 
 /* Polices système pour performances optimales */
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
 }
+
+/* Pour améliorer la compatibilité avec les appareils bas de gamme */
+
