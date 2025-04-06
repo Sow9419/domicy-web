@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, Sliders, User, MapPin, X } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 // Création d'un objet global pour partager l'état des filtres entre les composants
 export const filterState = {
@@ -185,30 +186,24 @@ const Header = () => {
         )}
       </div>
       
-      <div className="hidden md:flex items-center space-x-6">
+      <div className="flex items-center space-x-4">
         <Link 
           to="/ajouter-logement"
-          className="text-gray-700 hover:text-primary transition-colors text-sm font-medium"
+          className="hidden md:block text-gray-700 hover:text-primary transition-colors text-sm font-medium"
         >
           Mettre mon logement sur Domicy
         </Link>
         
         <Link 
           to="/compte"
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
           aria-label="Accéder à mon compte"
         >
-          <User size={20} className="text-gray-600" />
-        </Link>
-      </div>
-      
-      <div className="md:hidden ml-4 flex items-center">
-        <Link 
-          to="/compte"
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100"
-          aria-label="Accéder à mon compte"
-        >
-          <User size={20} className="text-gray-600" />
+          <Avatar className="h-9 w-9">
+            <AvatarFallback className="bg-primary/10 text-primary">
+              <User size={20} className="text-gray-600" />
+            </AvatarFallback>
+          </Avatar>
         </Link>
       </div>
     </header>
