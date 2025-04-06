@@ -4,6 +4,7 @@ import {
   Tv, Car, Home, Snowflake, 
   Coffee, Wind, Utensils, Waves,
 } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface EquipmentProps {
   type: string;
@@ -39,12 +40,13 @@ const Equipment = ({ type, label }: EquipmentProps) => {
       <div className="bg-primary/10 rounded-full p-2 mr-3 flex items-center justify-center">
         {getIcon()}
       </div>
-      <span className="text-sm font-medium text-gray-700">{label}</span>
+      <span className="text-sm font-medium text-gray-700 truncate">{label}</span>
     </div>
   );
 };
 
 const PropertyEquipment = () => {
+  const isMobile = useIsMobile();
   const equipments = [
     { type: 'garage', label: 'Voiture Garage' },
     { type: 'meuble', label: 'Meuble Déco' },
@@ -59,7 +61,7 @@ const PropertyEquipment = () => {
   return (
     <div className="my-6">
       <h2 className="text-xl font-semibold mb-4">Équipements</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+      <div className={`grid ${isMobile ? 'grid-cols-2' : 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4'} gap-3`}>
         {equipments.map((equipment, index) => (
           <Equipment key={index} type={equipment.type} label={equipment.label} />
         ))}
