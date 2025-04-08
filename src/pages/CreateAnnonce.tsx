@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, MapPin, Upload, Wifi, Car, Tv, Thermometer, Refrigerator, Pool, ChefHat, Coffee, Bed, Shower, Faucet, Lightbulb } from 'lucide-react';
+import { ArrowLeft, Plus, MapPin, Upload, Wifi, Car, Tv, Thermometer, Refrigerator, 
+  Bath, Bed, Droplets, WaterOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -327,7 +328,7 @@ const CreateAnnonce = () => {
                 />
               </div>
               <div className="border rounded-lg p-3 flex items-center">
-                <Shower className="text-green-500 mr-2" size={20} />
+                <Bath className="text-green-500 mr-2" size={20} />
                 <Input
                   placeholder="Nombre de salles de bain"
                   value={formData.bathrooms}
@@ -338,7 +339,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <Faucet className="text-green-500 mr-2" size={20} />
+                  <Droplets className="text-green-500 mr-2" size={20} />
                   <span>Robinet</span>
                 </div>
                 <Switch
@@ -348,7 +349,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <Lightbulb className="text-green-500 mr-2" size={20} />
+                  <WaterOff className="text-green-500 mr-2" size={20} />
                   <span>Courant</span>
                 </div>
                 <Switch
@@ -415,7 +416,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <Pool className="text-green-500 mr-2" size={20} />
+                  <Bath className="text-green-500 mr-2" size={20} />
                   <span>Piscine</span>
                 </div>
                 <Switch
@@ -425,7 +426,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <ChefHat className="text-green-500 mr-2" size={20} />
+                  <Tv className="text-green-500 mr-2" size={20} />
                   <span>Cuisine équipée</span>
                 </div>
                 <Switch
@@ -435,7 +436,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <Coffee className="text-green-500 mr-2" size={20} />
+                  <Tv className="text-green-500 mr-2" size={20} />
                   <span>Machine à café</span>
                 </div>
                 <Switch
