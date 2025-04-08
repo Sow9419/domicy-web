@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -55,7 +54,6 @@ const PaymentMethodsSection = ({ paymentMethods: initialMethods }: PaymentMethod
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simple validation
     if (!formData.name) {
       toast({
         title: "Erreur",
@@ -147,13 +145,13 @@ const PaymentMethodsSection = ({ paymentMethods: initialMethods }: PaymentMethod
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="mobile" id="mobile" />
                     <Label htmlFor="mobile" className="flex items-center gap-2">
-                      <Mobile size={16} /> Mobile Money
+                      <Smartphone size={16} /> Mobile Money
                     </Label>
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="bank" id="bank" />
                     <Label htmlFor="bank" className="flex items-center gap-2">
-                      <Bank size={16} /> Virement bancaire
+                      <Banknote size={16} /> Virement bancaire
                     </Label>
                   </div>
                 </RadioGroup>
