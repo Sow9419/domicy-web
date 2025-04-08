@@ -56,13 +56,13 @@ const accountData = {
   paymentMethods: [
     {
       id: '1',
-      type: 'mobile',
+      type: 'mobile', // Changed from string to literal 'mobile'
       name: 'Orange Money',
       icon: '🔶',
     },
     {
       id: '2',
-      type: 'card',
+      type: 'card', // Changed from string to literal 'card'
       name: 'Visa',
       details: '****4589',
       icon: CreditCard,
