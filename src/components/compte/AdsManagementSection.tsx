@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Plus, ChevronRight, Home } from 'lucide-react';
 
@@ -14,7 +15,8 @@ const AdsManagementSection = ({ adsCount }: AdsManagementSectionProps) => {
         <CardTitle className="text-lg font-semibold">Gérer mes annonces</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
-        <button 
+        <Link 
+          to="/creer-annonce"
           className="w-full flex items-center justify-between p-4 rounded-lg border border-green-500 text-green-600 hover:bg-green-50 transition-colors"
         >
           <div className="flex items-center">
@@ -24,9 +26,10 @@ const AdsManagementSection = ({ adsCount }: AdsManagementSectionProps) => {
             <span className="font-medium">Créer une annonce</span>
           </div>
           <ChevronRight size={16} className="text-green-400" />
-        </button>
+        </Link>
         
-        <button 
+        <Link 
+          to="/annonce"
           className="w-full flex items-center justify-between p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
         >
           <div className="flex items-center">
@@ -41,7 +44,7 @@ const AdsManagementSection = ({ adsCount }: AdsManagementSectionProps) => {
             </div>
           </div>
           <ChevronRight size={16} className="text-gray-400" />
-        </button>
+        </Link>
       </CardContent>
     </Card>
   );

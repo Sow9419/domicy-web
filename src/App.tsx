@@ -11,6 +11,8 @@ import Explorer from "./pages/Explorer";
 import Favoris from "./pages/Favoris";
 import Compte from "./pages/Compte";
 import PropertyDetails from "./pages/PropertyDetails";
+import AnnonceView from "./pages/AnnonceView";
+import CreateAnnonce from "./pages/CreateAnnonce";
 import NotFound from "./pages/NotFound";
 
 // Create a client
@@ -30,6 +32,8 @@ const App: React.FC = () => (
               <Route path="/favoris" element={<Favoris />} />
               <Route path="/compte" element={<Compte />} />
               <Route path="/propriete/:id" element={<PropertyDetails />} />
+              <Route path="/annonce" element={<AnnonceView />} />
+              <Route path="/creer-annonce" element={<CreateAnnonce />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
