@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, CreditCard, Pencil, Bank, Mobile } from 'lucide-react';
+import { Plus, CreditCard, Pencil, Banknote, Smartphone } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -48,8 +48,8 @@ const PaymentMethodsSection = ({ paymentMethods: initialMethods }: PaymentMethod
 
   const getIconByType = (type: 'card' | 'mobile' | 'bank') => {
     if (type === 'card') return CreditCard;
-    if (type === 'mobile') return Mobile;
-    return Bank;
+    if (type === 'mobile') return Smartphone;
+    return Banknote;
   };
 
   const handleSubmit = (e: React.FormEvent) => {

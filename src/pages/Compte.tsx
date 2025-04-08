@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { LogOut, CreditCard } from 'lucide-react';
+import { LogOut, CreditCard, Smartphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -56,13 +56,13 @@ const accountData = {
   paymentMethods: [
     {
       id: '1',
-      type: 'mobile', // Changed from string to literal 'mobile'
+      type: 'mobile' as const,
       name: 'Orange Money',
       icon: '🔶',
     },
     {
       id: '2',
-      type: 'card', // Changed from string to literal 'card'
+      type: 'card' as const,
       name: 'Visa',
       details: '****4589',
       icon: CreditCard,
