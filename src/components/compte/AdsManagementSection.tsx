@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Plus, ChevronRight, Home } from 'lucide-react';
+import { Plus, ChevronRight, Home, PenSquare } from 'lucide-react';
 
 interface AdsManagementSectionProps {
   adsCount: number;
@@ -26,6 +26,19 @@ const AdsManagementSection = ({ adsCount }: AdsManagementSectionProps) => {
             <span className="font-medium">Créer une annonce</span>
           </div>
           <ChevronRight size={16} className="text-green-400" />
+        </Link>
+        
+        <Link 
+          to="/creer-service"
+          className="w-full flex items-center justify-between p-4 rounded-lg border border-blue-500 text-blue-600 hover:bg-blue-50 transition-colors"
+        >
+          <div className="flex items-center">
+            <div className="mr-3 w-6 h-6 flex items-center justify-center text-blue-500">
+              <PenSquare size={18} />
+            </div>
+            <span className="font-medium">Créer une publicité</span>
+          </div>
+          <ChevronRight size={16} className="text-blue-400" />
         </Link>
         
         <Link 
