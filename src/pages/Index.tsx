@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeroSection from '@/components/home/HeroSection';
 import PropertySection from '@/components/home/PropertySection';
@@ -57,7 +56,7 @@ const mockProperties = [
     currency: 'FCFA',
     period: 'Mois',
     rating: 4.2,
-    imageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
   }
 ];
 
@@ -166,28 +165,33 @@ const verifiedProperties = [
   }
 ];
 
-// Données pour le carrousel de services
 const heroServices = [
   {
+    id: "1",
     title: "Nettoyage Éclatant : Votre Partenaire de Confiance",
     description: "Des services professionnels pour un habitat sain et impeccable",
     imageUrl: "/lovable-uploads/8d7c4e8a-758a-4034-af18-f2f78c718eb2.png",
-    buttonText: "Contacter le service",
-    buttonLink: "/services"
+    buttonText: "Voir les détails",
+    buttonLink: "/service/1",
+    category: "Nettoyage"
   },
   {
+    id: "2",
     title: "Location Immobilière Simplifiée",
     description: "Trouvez le logement idéal adapté à vos besoins au Mali",
     imageUrl: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
     buttonText: "Explorer les logements",
-    buttonLink: "/explorer"
+    buttonLink: "/explorer",
+    category: "Immobilier"
   },
   {
+    id: "3",
     title: "Publiez Votre Propriété",
     description: "Mettez votre logement en location et trouvez des locataires fiables",
     imageUrl: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
     buttonText: "Publier une annonce",
-    buttonLink: "/ajouter-logement"
+    buttonLink: "/creer-service",
+    category: "Publicité"
   }
 ];
 
@@ -227,11 +231,11 @@ const Index = () => {
               buttonText="Explorer"
             />
             <FeatureCard 
-              title="Mettez votre logement en location"
-              description="Publiez votre propriété et trouvez des locataires fiables rapidement."
+              title="Publier votre service"
+              description="Créez une annonce pour offrir vos services professionnels."
               imageUrl="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80"
-              linkUrl="/ajouter-logement"
-              buttonText="Publier une annonce"
+              linkUrl="/creer-service"
+              buttonText="Créer une publicité"
             />
           </div>
         </div>

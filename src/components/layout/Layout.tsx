@@ -9,19 +9,20 @@ const Layout = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   
-  // Vérifier si l'utilisateur est sur la page PropertyDetails
+  // Check if user is on Service pages or PropertyDetails
   const isPropertyDetailsPage = location.pathname.includes('/propriete/');
+  const isServicePage = location.pathname.includes('/service/') || location.pathname.includes('/creer-service');
   
   return (
     <div className="min-h-screen bg-white relative">
-      {!isPropertyDetailsPage && <Sidebar />}
-      <div className={`${isMobile && !isPropertyDetailsPage ? '' : isPropertyDetailsPage ? '' : 'md:ml-16'}`}>
-        {!isPropertyDetailsPage && <Header />}
-        <main className={`${isMobile && !isPropertyDetailsPage ? 'pb-16' : ''} ${!isPropertyDetailsPage ? 'pt-16 md:pt-20' : ''}`}>
+      {!isPropertyDetailsPage && !isServicePage && <Sidebar />}
+      <div className={`${isMobile && !isPropertyDetailsPage && !isServicePage ? '' : isPropertyDetailsPage || isServicePage ? '' : 'md:ml-16'}`}>
+        {!isPropertyDetailsPage && !isServicePage && <Header />}
+        <main className={`${isMobile && !isPropertyDetailsPage && !isServicePage ? 'pb-16' : ''} ${!isPropertyDetailsPage && !isServicePage ? 'pt-16 md:pt-20' : ''}`}>
           <Outlet />
         </main>
       </div>
-      {isMobile && !isPropertyDetailsPage && <Sidebar isMobile={true} />}
+      {isMobile && !isPropertyDetailsPage && !isServicePage && <Sidebar isMobile={true} />}
     </div>
   );
 };
