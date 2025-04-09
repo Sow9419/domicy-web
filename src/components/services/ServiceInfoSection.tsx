@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Calendar, Phone, Mail } from 'lucide-react';
+import { MapPin, Calendar, Phone, Mail, Tag } from 'lucide-react';
 
 interface ServiceInfoSectionProps {
   title: string;
@@ -24,23 +24,35 @@ const ServiceInfoSection: React.FC<ServiceInfoSectionProps> = ({
   email
 }) => {
   return (
-    <div className="p-4 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold mb-2">{title}</h1>
-        <p className="text-xl font-semibold text-green-600">{price} FCFA</p>
-      </div>
+    <div className="bg-white p-5 mt-4 rounded-lg shadow-sm">
+      <h3 className="text-xl font-semibold mb-6">Contactez-nous</h3>
       
-      <div>
-        <h2 className="text-lg font-semibold mb-2">Description</h2>
-        <p className="text-gray-700 whitespace-pre-line">{description}</p>
-      </div>
-      
-      <div className="space-y-3">
-        <h2 className="text-lg font-semibold">Informations</h2>
+      <div className="space-y-5">
+        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+          <div className="bg-purple-100 p-2 rounded-full">
+            <Phone className="h-5 w-5 text-purple-600" />
+          </div>
+          <div>
+            <p className="font-medium">Téléphone</p>
+            <p className="text-gray-600">{phone}</p>
+          </div>
+        </div>
+        
+        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+          <div className="bg-blue-100 p-2 rounded-full">
+            <Mail className="h-5 w-5 text-blue-600" />
+          </div>
+          <div>
+            <p className="font-medium">Email</p>
+            <p className="text-gray-600">{email}</p>
+          </div>
+        </div>
         
         {location && (
-          <div className="flex items-start">
-            <MapPin className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
+          <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+            <div className="bg-green-100 p-2 rounded-full">
+              <MapPin className="h-5 w-5 text-green-600" />
+            </div>
             <div>
               <p className="font-medium">Localisation</p>
               <p className="text-gray-600">{location}</p>
@@ -48,27 +60,25 @@ const ServiceInfoSection: React.FC<ServiceInfoSectionProps> = ({
           </div>
         )}
         
-        <div className="flex items-start">
-          <Calendar className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
+        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+          <div className="bg-amber-100 p-2 rounded-full">
+            <Calendar className="h-5 w-5 text-amber-600" />
+          </div>
           <div>
             <p className="font-medium">Disponibilité</p>
             <p className="text-gray-600">{availability}</p>
           </div>
         </div>
         
-        <div className="flex items-start">
-          <Phone className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
-          <div>
-            <p className="font-medium">Téléphone</p>
-            <p className="text-gray-600">{phone}</p>
+        <div className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+          <div className="bg-red-100 p-2 rounded-full">
+            <Tag className="h-5 w-5 text-red-600" />
           </div>
-        </div>
-        
-        <div className="flex items-start">
-          <Mail className="h-5 w-5 text-gray-500 mr-3 mt-0.5" />
           <div>
-            <p className="font-medium">Email</p>
-            <p className="text-gray-600">{email}</p>
+            <p className="font-medium">Prix</p>
+            <p className="text-gray-600 font-semibold text-lg">
+              {price} {isNaN(Number(price)) ? '' : 'FCFA'}
+            </p>
           </div>
         </div>
       </div>

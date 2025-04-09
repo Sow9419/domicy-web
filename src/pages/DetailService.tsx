@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Import service components
@@ -9,6 +9,7 @@ import ServiceDetailHeader from '@/components/services/ServiceDetailHeader';
 import ServiceImageGallery from '@/components/services/ServiceImageGallery';
 import ServiceInfoSection from '@/components/services/ServiceInfoSection';
 import ServiceContactButtons from '@/components/services/ServiceContactButtons';
+import ServiceProviderProfile from '@/components/services/ServiceProviderProfile';
 
 // Mock service data
 const mockService = {
@@ -28,35 +29,41 @@ const mockService = {
   email: 'nettoyage@example.com',
   user: {
     id: '101',
-    name: 'Clean Services Mali',
+    name: 'Sophie Dubois',
     rating: 4.8,
     reviewsCount: 56,
-    avatar: '/lovable-uploads/1ed7d643-f0eb-4fe6-acbb-d2fbe106ac2d.png'
-  }
+    avatar: '/lovable-uploads/1ed7d643-f0eb-4fe6-acbb-d2fbe106ac2d.png',
+    title: 'Superhôte',
+    responseTime: 'moins d\'une heure'
+  },
+  bio: 'Nous offrons des solutions marketing personnalisées pour optimiser votre présence en ligne. Notre équipe d\'experts combine créativité et technologie pour générer des résultats mesurables.'
 };
 
 // Additional mock service for ID 2
 const secondMockService = {
   id: '2',
-  title: 'Services Immobiliers Premium',
-  description: 'Nous accompagnons nos clients dans leurs projets immobiliers à Bamako. Notre équipe propose une gamme complète de services: recherche de biens, visites, négociation, et finalisation des transactions.',
+  title: 'Solutions Marketing Digital',
+  description: 'Propulsez votre entreprise vers le succès numérique',
   price: '30000',
-  category: 'Immobilier',
+  category: 'Marketing',
   images: [
+    '/lovable-uploads/afa5bb36-b321-4474-a6a9-0c412e59775b.png',
     'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    'https://images.unsplash.com/photo-1560449752-3fd74f5f4d55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
   ],
   location: 'Bamako, ACI 2000',
   availability: 'Lun-Sam, 9h-18h',
-  phone: '+223 78 45 67 89',
-  email: 'contact@premiumimmo.ml',
+  phone: '+123 456 7890',
+  email: 'contact@example.com',
   user: {
     id: '102',
-    name: 'Premium Immobilier Mali',
+    name: 'Sophie Dubois',
     rating: 4.9,
     reviewsCount: 78,
-    avatar: '/lovable-uploads/1ed7d643-f0eb-4fe6-acbb-d2fbe106ac2d.png'
-  }
+    avatar: '/lovable-uploads/1ed7d643-f0eb-4fe6-acbb-d2fbe106ac2d.png',
+    title: 'Superhôte',
+    responseTime: 'moins d\'une heure'
+  },
+  bio: 'Nous offrons des solutions marketing personnalisées pour optimiser votre présence en ligne. Notre équipe d\'experts combine créativité et technologie pour générer des résultats mesurables.'
 };
 
 // Map of mock services by ID
@@ -112,7 +119,7 @@ const DetailService: React.FC = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -128,12 +135,12 @@ const DetailService: React.FC = () => {
   }
   
   return (
-    <div className="pb-24">
-      <div className="bg-white p-4 flex items-center">
+    <div className="pb-24 bg-gray-50 min-h-screen">
+      <div className="bg-white p-4 flex items-center sticky top-0 z-20 shadow-sm">
         <Button variant="ghost" size="icon" onClick={handleBack} className="mr-2">
           <ArrowLeft className="h-5 w-5" />
         </Button>
-        <ServiceDetailHeader title={service.title} />
+        <h1 className="text-xl font-semibold">En savoir plus</h1>
       </div>
       
       <ServiceImageGallery 
@@ -141,16 +148,30 @@ const DetailService: React.FC = () => {
         category={service.category} 
       />
       
-      <ServiceInfoSection 
-        title={service.title}
-        description={service.description}
-        price={service.price}
-        category={service.category}
-        location={service.location}
-        availability={service.availability}
-        phone={service.phone}
-        email={service.email}
-      />
+      <div className="max-w-4xl mx-auto">
+        <div className="p-5 bg-white mt-4 rounded-lg shadow-sm">
+          <h1 className="text-3xl font-bold mb-2">{service.title}</h1>
+          {service.description && (
+            <p className="text-gray-600">{service.description}</p>
+          )}
+        </div>
+        
+        <ServiceProviderProfile 
+          user={service.user}
+          bio={service.bio}
+        />
+        
+        <ServiceInfoSection 
+          title={service.title}
+          description={service.description}
+          price={service.price}
+          category={service.category}
+          location={service.location}
+          availability={service.availability}
+          phone={service.phone}
+          email={service.email}
+        />
+      </div>
       
       <ServiceContactButtons phone={service.phone} />
     </div>

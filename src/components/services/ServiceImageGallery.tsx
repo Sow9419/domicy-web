@@ -8,6 +8,7 @@ import {
   CarouselNext 
 } from "@/components/ui/carousel";
 import { Badge } from '@/components/ui/badge';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ServiceImageGalleryProps {
   images: string[];
@@ -26,8 +27,8 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
     <div className="relative">
       <Carousel 
         className="w-full"
-        onSelect={(index) => {
-          // Convert the event value to a number before updating state
+        onSelectionChange={(index) => {
+          // Only update if the index is a number
           if (typeof index === 'number') {
             setCurrentIndex(index);
           }
@@ -36,7 +37,7 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
         <CarouselContent>
           {images.map((image, index) => (
             <CarouselItem key={index}>
-              <div className="aspect-[16/9] w-full">
+              <div className="aspect-[4/3] md:aspect-[16/9] w-full">
                 <img 
                   src={image} 
                   alt={`Service ${index + 1}`} 
@@ -46,17 +47,23 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" />
-        <CarouselNext className="right-2" />
+        <CarouselPrevious 
+          className="left-2 bg-white/80 hover:bg-white text-gray-900 border-none"
+          icon={<ChevronLeft className="h-5 w-5" />}
+        />
+        <CarouselNext 
+          className="right-2 bg-white/80 hover:bg-white text-gray-900 border-none"
+          icon={<ChevronRight className="h-5 w-5" />}
+        />
       </Carousel>
       
       <div className="absolute bottom-4 left-4 z-10">
-        <Badge variant="secondary" className="bg-white/80 text-gray-800">
+        <Badge variant="secondary" className="bg-black/70 backdrop-blur-sm text-white border-none">
           {category}
         </Badge>
       </div>
       
-      <div className="absolute bottom-4 right-4 z-10 bg-black/60 text-white px-2 py-1 rounded-md text-sm">
+      <div className="absolute bottom-4 right-4 z-10 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">
         {currentIndex + 1} / {images.length}
       </div>
     </div>
