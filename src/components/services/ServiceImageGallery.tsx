@@ -26,7 +26,12 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
     <div className="relative">
       <Carousel 
         className="w-full"
-        onSelect={(index) => setCurrentIndex(index)}
+        onSelect={(index) => {
+          // Convert the event value to a number before updating state
+          if (typeof index === 'number') {
+            setCurrentIndex(index);
+          }
+        }}
       >
         <CarouselContent>
           {images.map((image, index) => (
