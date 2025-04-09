@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Plus, MapPin, Upload, Wifi, Car, Tv, Thermometer, Refrigerator, 
-  Bath, Bed, Droplets, WaterOff } from 'lucide-react';
+  Bath, Bed, Droplets, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,7 +10,6 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 
-// Types pour le formulaire
 interface FormData {
   title: string;
   propertyType: string;
@@ -37,7 +35,6 @@ interface FormData {
   photos: File[];
 }
 
-// Liste des types de propriété
 const propertyTypes = [
   'Appartement',
   'Maison',
@@ -54,7 +51,6 @@ const CreateAnnonce = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   
-  // État pour stocker les données du formulaire
   const [formData, setFormData] = useState<FormData>({
     title: '',
     propertyType: '',
@@ -80,15 +76,12 @@ const CreateAnnonce = () => {
     photos: []
   });
 
-  // Images prévisualisées
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
-  // Gérer le changement des champs de formulaire
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  // Gérer le changement des commodités
   const handleAmenityChange = (amenity: string, value: boolean) => {
     setFormData(prev => ({
       ...prev,
@@ -99,12 +92,10 @@ const CreateAnnonce = () => {
     }));
   };
 
-  // Gérer l'ajout de photos
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const filesArray = Array.from(e.target.files);
       
-      // Limiter à 5 photos
       if (formData.photos.length + filesArray.length > 5) {
         toast({
           title: "Limite atteinte",
@@ -114,10 +105,8 @@ const CreateAnnonce = () => {
         return;
       }
       
-      // Créer des URLs pour la prévisualisation
       const newPreviews = filesArray.map(file => URL.createObjectURL(file));
       
-      // Mettre à jour l'état
       setFormData(prev => ({
         ...prev,
         photos: [...prev.photos, ...filesArray]
@@ -127,13 +116,12 @@ const CreateAnnonce = () => {
     }
   };
   
-  // Supprimer une photo
   const handleRemovePhoto = (index: number) => {
     const updatedPhotos = [...formData.photos];
     updatedPhotos.splice(index, 1);
     
     const updatedPreviews = [...previewImages];
-    URL.revokeObjectURL(updatedPreviews[index]); // Libérer l'URL
+    URL.revokeObjectURL(updatedPreviews[index]);
     updatedPreviews.splice(index, 1);
     
     setFormData(prev => ({
@@ -144,11 +132,9 @@ const CreateAnnonce = () => {
     setPreviewImages(updatedPreviews);
   };
   
-  // Publier l'annonce
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validation minimale
     if (!formData.title || !formData.propertyType || !formData.price || !formData.address) {
       toast({
         title: "Informations manquantes",
@@ -158,19 +144,16 @@ const CreateAnnonce = () => {
       return;
     }
     
-    // Simuler l'envoi
     toast({
       title: "Annonce publiée",
       description: "Votre annonce a été publiée avec succès"
     });
     
-    // Rediriger vers la liste des annonces
     navigate('/annonce');
   };
 
   return (
     <div className="bg-gray-50 min-h-screen pb-20">
-      {/* Header */}
       <div className="sticky top-0 bg-white border-b z-10">
         <div className="flex items-center p-4">
           <button
@@ -180,18 +163,15 @@ const CreateAnnonce = () => {
             <ArrowLeft size={24} />
           </button>
           <h1 className="text-xl font-semibold flex-1 text-center">Créer une annonce</h1>
-          <div className="w-6"></div> {/* Pour centrer le titre */}
+          <div className="w-6"></div>
         </div>
       </div>
 
-      {/* Content */}
       <div className="px-4 py-6 max-w-2xl mx-auto">
         <form onSubmit={handleSubmit}>
-          {/* Photos Section */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Photos</h2>
             <div className="grid grid-cols-4 gap-3">
-              {/* Add button */}
               <label htmlFor="photo-upload" className="border-2 border-dashed border-gray-300 rounded-lg aspect-square flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:bg-gray-100">
                 <Plus size={24} className="text-gray-400 mb-1" />
                 <span className="text-xs text-gray-500">Ajouter</span>
@@ -205,7 +185,6 @@ const CreateAnnonce = () => {
                 />
               </label>
               
-              {/* Preview images */}
               {previewImages.map((src, index) => (
                 <div key={index} className="relative rounded-lg overflow-hidden aspect-square">
                   <img 
@@ -225,7 +204,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Main Information */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Informations principales</h2>
             <div className="space-y-4">
@@ -282,7 +260,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Location */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Localisation</h2>
             <div className="space-y-2">
@@ -294,7 +271,6 @@ const CreateAnnonce = () => {
                 onChange={(e) => handleInputChange('address', e.target.value)}
               />
               
-              {/* Map placeholder */}
               <div className="h-48 bg-gray-200 rounded-lg mt-4 flex items-center justify-center">
                 <MapPin className="text-gray-400 mr-2" />
                 <span className="text-gray-500">Carte indisponible</span>
@@ -302,7 +278,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Description */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Description</h2>
             <Textarea
@@ -313,7 +288,6 @@ const CreateAnnonce = () => {
             />
           </section>
 
-          {/* Main Features */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Caractéristiques principales</h2>
             <div className="grid grid-cols-2 gap-4">
@@ -349,7 +323,7 @@ const CreateAnnonce = () => {
               </div>
               <div className="border rounded-lg p-3 flex items-center justify-between">
                 <div className="flex items-center">
-                  <WaterOff className="text-green-500 mr-2" size={20} />
+                  <Zap className="text-green-500 mr-2" size={20} />
                   <span>Courant</span>
                 </div>
                 <Switch
@@ -360,7 +334,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Amenities */}
           <section className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Équipements</h2>
             <div className="grid grid-cols-2 gap-4">
@@ -447,7 +420,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Availability */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold mb-4">Disponibilité</h2>
             <div className="flex items-center justify-between">
@@ -459,7 +431,6 @@ const CreateAnnonce = () => {
             </div>
           </section>
 
-          {/* Submit Button */}
           <Button type="submit" className="w-full py-6 text-lg bg-green-500 hover:bg-green-600">
             Publier l'annonce
           </Button>
