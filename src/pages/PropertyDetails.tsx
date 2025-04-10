@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -155,6 +154,7 @@ const PropertyDetails = () => {
   const [propertyData, setPropertyData] = useState<PropertyType | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   useEffect(() => {
     if (id) {
@@ -185,7 +185,6 @@ const PropertyDetails = () => {
   }
   
   const allImages = [propertyData.imageUrl, ...(propertyData.additionalImages || [])];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -223,14 +222,6 @@ const PropertyDetails = () => {
       });
     }
   };
-  
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
   
   return (
     <div className="max-w-7xl mx-auto pb-28 md:pb-10">
