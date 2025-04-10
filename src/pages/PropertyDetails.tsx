@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -34,6 +35,7 @@ interface PropertyType {
   bathrooms: number;
   features: string[];
   equipments: string[];
+  unavailableEquipments?: string[];
   ownerName: string;
   ownerStatus: string;
   ownerPhone: string;
@@ -58,6 +60,7 @@ const mockProperties: PropertyType[] = [
     bathrooms: 1,
     features: ['Disponibilité robinet', 'Courant'],
     equipments: ['Voiture Garage', 'Meuble Déco', 'TV Smart 4K', 'Climatisation', 'Réfrigérateur', 'Machine à Café', 'Cuisine Équipée'],
+    unavailableEquipments: ['Internet Fibre', 'Piscine', 'Sécurité 24/7'],
     ownerName: 'Sophie Dubois',
     ownerStatus: "Superhôte • Répond en moins d'une heure",
     ownerPhone: '+223 76 45 23 67',
@@ -149,9 +152,7 @@ const PropertyDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  const property = mockProperties.find(p => p.id === id);
-  
-  const [propertyData, setPropertyData] = useState<PropertyType>(property || mockProperties[0]);
+  const [propertyData, setPropertyData] = useState<PropertyType | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
   
@@ -161,6 +162,7 @@ const PropertyDetails = () => {
       if (foundProperty) {
         setPropertyData(foundProperty);
         setIsFavorite(foundProperty.isFavorite || false);
+        setLoading(false);
       } else {
         toast({
           title: "Propriété non trouvée",
@@ -169,9 +171,18 @@ const PropertyDetails = () => {
         });
         setTimeout(() => navigate('/'), 2000);
       }
+    } else {
+      setLoading(false);
     }
-    setLoading(false);
   }, [id, navigate]);
+  
+  if (loading || !propertyData) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
   
   const allImages = [propertyData.imageUrl, ...(propertyData.additionalImages || [])];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -356,7 +367,10 @@ const PropertyDetails = () => {
               </div>
             </TabsContent>
             <TabsContent value="equipments">
-              <PropertyEquipment equipments={propertyData.equipments} />
+              <PropertyEquipment 
+                equipments={propertyData.equipments} 
+                unavailableEquipments={propertyData.unavailableEquipments}
+              />
             </TabsContent>
             <TabsContent value="reviews">
               <div className="mt-4">
