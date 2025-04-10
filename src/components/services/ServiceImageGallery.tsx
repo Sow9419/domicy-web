@@ -27,10 +27,11 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
     <div className="relative">
       <Carousel 
         className="w-full"
-        onSelect={(api) => {
+        setApi={(api) => {
           if (api) {
-            const selectedIndex = api.selectedScrollSnap();
-            setCurrentIndex(selectedIndex);
+            api.on('select', () => {
+              setCurrentIndex(api.selectedScrollSnap());
+            });
           }
         }}
       >
