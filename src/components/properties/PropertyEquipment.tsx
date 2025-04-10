@@ -5,7 +5,6 @@ import {
   Tv, 
   Car, 
   Sofa, 
-  Fridge, 
   Coffee, 
   UtensilsCrossed, 
   AirVent,
@@ -13,7 +12,8 @@ import {
   Bath,
   Wifi,
   Lock,
-  X
+  X,
+  ShoppingBasket  // Replacing Fridge with ShoppingBasket
 } from 'lucide-react';
 
 interface PropertyEquipmentProps {
@@ -26,7 +26,7 @@ const equipmentIconMap: Record<string, React.ReactNode> = {
   "TV Smart 4K": <Tv size={20} />,
   "Voiture Garage": <Car size={20} />,
   "Meuble Déco": <Sofa size={20} />,
-  "Réfrigérateur": <Fridge size={20} />,
+  "Réfrigérateur": <ShoppingBasket size={20} />, // Updated to use ShoppingBasket
   "Machine à Café": <Coffee size={20} />,
   "Cuisine Équipée": <UtensilsCrossed size={20} />,
   "Climatisation": <AirVent size={20} />,
