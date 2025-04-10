@@ -4,17 +4,11 @@ import { Phone, MessageSquare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface MobileBottomBarProps {
-  price: number;
-  currency: string;
-  period: string;
   ownerPhone: string;
   ownerWhatsapp: string;
 }
 
 const MobileBottomBar = ({ 
-  price,
-  currency,
-  period,
   ownerPhone,
   ownerWhatsapp
 }: MobileBottomBarProps) => {
@@ -27,12 +21,6 @@ const MobileBottomBar = ({
   };
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg p-4 z-50 md:hidden">
-      <div className="flex items-center justify-between mb-3">
-        <div>
-          <span className="text-xl font-bold">{price.toLocaleString()} {currency}</span>
-          <span className="text-gray-600">/{period}</span>
-        </div>
-      </div>
       <div className="flex gap-3">
         <Button
           variant="outline"
