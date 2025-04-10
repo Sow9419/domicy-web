@@ -1,15 +1,17 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropertyCard, { PropertyProps } from '../properties/PropertyCard';
+import PropertyCard from '../properties/PropertyCard';
+import { PropertyType } from '@/hooks/useProperties';
 
 interface PropertySectionProps {
   title: string;
-  properties: PropertyProps[];
+  properties: PropertyType[];
   viewAllLink: string;
+  onToggleFavorite?: (id: string) => void;
 }
 
-const PropertySection = ({ title, properties, viewAllLink }: PropertySectionProps) => {
+const PropertySection = ({ title, properties, viewAllLink, onToggleFavorite }: PropertySectionProps) => {
   return (
     <section className="py-3">
       <div className="flex justify-between items-center mb-3">
@@ -21,7 +23,11 @@ const PropertySection = ({ title, properties, viewAllLink }: PropertySectionProp
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {properties.map((property) => (
-          <PropertyCard key={property.id} {...property} />
+          <PropertyCard 
+            key={property.id} 
+            property={property} 
+            onToggleFavorite={onToggleFavorite}
+          />
         ))}
       </div>
     </section>

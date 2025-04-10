@@ -2,39 +2,38 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, MapPin, ArrowUpRight, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { PropertyType } from '@/hooks/useProperties';
 
-export interface PropertyProps {
-  id: string;
-  title: string;
-  location: string;
-  price: number;
-  currency: string;
-  period: string;
-  rating: number;
-  imageUrl: string;
-  isAvailable?: boolean;
-  isFavorite?: boolean;
-  images?: string[];
+interface PropertyCardProps {
+  property: PropertyType;
+  onToggleFavorite?: (id: string) => void;
 }
 
-const PropertyCard = ({
-  id,
-  title,
-  location,
-  price,
-  currency,
-  period,
-  rating,
-  imageUrl,
-  isAvailable = true,
-  isFavorite: initialIsFavorite = false,
-  images
-}: PropertyProps) => {
+const PropertyCard = ({ property, onToggleFavorite }: PropertyCardProps) => {
+  const {
+    id,
+    title,
+    location,
+    price,
+    currency,
+    period,
+    rating,
+    imageUrl,
+    isAvailable = true,
+    isFavorite = false,
+    images
+  } = property;
+  
   const allImages = images || [imageUrl];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
+  const [localIsFavorite, setLocalIsFavorite] = useState(isFavorite);
   const [showFavNotification, setShowFavNotification] = useState(false);
+
+  // Synchroniser l'état local avec les props
+  useEffect(() => {
+    setLocalIsFavorite(isFavorite);
+  }, [isFavorite]);
 
   // Automatic carousel function
   useEffect(() => {
@@ -66,7 +65,14 @@ const PropertyCard = ({
   const toggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    setIsFavorite(!isFavorite);
+    
+    // Mettre à jour l'état local
+    setLocalIsFavorite(!localIsFavorite);
+    
+    // Appeler la fonction de callback si elle existe
+    if (onToggleFavorite) {
+      onToggleFavorite(id);
+    }
     
     // Afficher la notification
     setShowFavNotification(true);
@@ -142,12 +148,12 @@ const PropertyCard = ({
         <button 
           className="bg-white/90 rounded-full p-2 transition-all hover:bg-white hover:shadow-md"
           onClick={toggleFavorite}
-          aria-label={isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
+          aria-label={localIsFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}
         >
           <Heart 
             size={20} 
-            className={isFavorite ? "text-red-500" : "text-gray-700"}
-            fill={isFavorite ? "currentColor" : "none"}
+            className={localIsFavorite ? "text-red-500" : "text-gray-700"}
+            fill={localIsFavorite ? "currentColor" : "none"}
           />
         </button>
       </div>
@@ -158,7 +164,7 @@ const PropertyCard = ({
           showFavNotification ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
         }`}
       >
-        {isFavorite ? 'Ajouté aux favoris' : 'Retiré des favoris'}
+        {localIsFavorite ? 'Ajouté aux favoris' : 'Retiré des favoris'}
       </div>
       
       {/* Bottom Content */}

@@ -2,20 +2,25 @@
 import React from 'react';
 import { Heart, MapPin, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { PropertyProps } from './PropertyCard';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { PropertyType } from '@/hooks/useProperties';
 
 interface PropertyStorieProps {
-  property: PropertyProps;
+  property: PropertyType;
+  onToggleFavorite?: (id: string) => void;
 }
 
-const PropertyStorie = ({ property }: PropertyStorieProps) => {
-  const [isFavorite, setIsFavorite] = React.useState(property.isFavorite);
+const PropertyStorie = ({ property, onToggleFavorite }: PropertyStorieProps) => {
+  const [isFavorite, setIsFavorite] = React.useState(property.isFavorite || false);
   
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsFavorite(!isFavorite);
+    
+    if (onToggleFavorite) {
+      onToggleFavorite(property.id);
+    }
   };
   
   return (
@@ -67,15 +72,19 @@ const PropertyStorie = ({ property }: PropertyStorieProps) => {
   );
 };
 
+interface PropertyStorieSectionProps { 
+  title: string; 
+  properties: PropertyType[];
+  viewAllLink: string;
+  onToggleFavorite?: (id: string) => void;
+}
+
 const PropertyStorieSection = ({ 
   title, 
   properties, 
-  viewAllLink 
-}: { 
-  title: string; 
-  properties: PropertyProps[];
-  viewAllLink: string;
-}) => {
+  viewAllLink,
+  onToggleFavorite
+}: PropertyStorieSectionProps) => {
   return (
     <section className="py-2">
       <div className="flex justify-between items-center mb-2">
@@ -89,7 +98,11 @@ const PropertyStorieSection = ({
         <ScrollArea className="w-full" orientation="horizontal">
           <div className="flex gap-4 pb-4 min-w-full">
             {properties.map((property) => (
-              <PropertyStorie key={property.id} property={property} />
+              <PropertyStorie 
+                key={property.id} 
+                property={property} 
+                onToggleFavorite={onToggleFavorite}
+              />
             ))}
           </div>
         </ScrollArea>

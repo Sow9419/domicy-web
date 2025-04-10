@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Heart,
   Share2,
@@ -18,124 +18,68 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PropertyEquipment from '@/components/properties/PropertyEquipment';
 import BookingCard from '@/components/properties/BookingCard';
 import MobileBottomBar from '@/components/properties/MobileBottomBar';
-
-// Données mockées pour le développement - Synchronisées avec celles de Explorer.tsx
-const mockProperties = [
-  {
-    id: '1',
-    title: 'Ramen Sapporo',
-    location: 'Bamako, Baco Djicoroni',
-    price: 120000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.5,
-    reviews: 128,
-    imageUrl: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    description: "Magnifique appartement situé au cœur de Baco Djicoroni. Cet espace moderne et lumineux offre tout le confort nécessaire pour un séjour agréable. Profitez d'une cuisine entièrement équipée et d'un salon spacieux avec vue imprenable sur la ville.",
-    rooms: 2,
-    bathrooms: 1,
-    features: ['Disponibilité robinet', 'Courant'],
-    equipments: ['Voiture Garage', 'Meuble Déco', 'TV Smart 4K', 'Climatisation', 'Réfrigérateur', 'Machine à Café', 'Cuisine Équipée'],
-    ownerName: 'Sophie Dubois',
-    ownerStatus: "Superhôte • Répond en moins d'une heure",
-    ownerPhone: '+223 76 45 23 67',
-    ownerWhatsapp: '+223 76 45 23 67',
-    additionalImages: [
-      'https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    ]
-  },
-  {
-    id: '2',
-    title: 'Appartement moderne',
-    location: 'Bamako, Baco Djicoroni',
-    price: 150000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.8,
-    reviews: 95,
-    imageUrl: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    description: "Superbe appartement moderne avec finitions haut de gamme. Espace de vie ouvert avec cuisine américaine, chambres spacieuses et salle de bain luxueuse. Idéalement situé près des commerces et transports.",
-    rooms: 3,
-    bathrooms: 2,
-    features: ['Disponibilité robinet', 'Courant', 'Internet Fibre'],
-    equipments: ['Parking', 'Meuble Déco', 'TV Smart 4K', 'Climatisation', 'Réfrigérateur', 'Machine à laver', 'Cuisine Équipée'],
-    ownerName: 'Jean Dupont',
-    ownerStatus: "Hôte expérimenté • Répond rapidement",
-    ownerPhone: '+223 76 98 76 54',
-    ownerWhatsapp: '+223 76 98 76 54',
-    additionalImages: [
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2158&q=80'
-    ]
-  },
-  {
-    id: '3',
-    title: 'Villa avec piscine',
-    location: 'Bamako, ACI 2000',
-    price: 350000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.9,
-    reviews: 152,
-    imageUrl: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    description: "Magnifique villa de luxe avec piscine privée dans un quartier sécurisé. Cette propriété exceptionnelle offre des espaces de vie généreux, des finitions haut de gamme et un jardin paysager. Parfait pour les familles ou pour recevoir.",
-    rooms: 5,
-    bathrooms: 3,
-    features: ['Disponibilité robinet', 'Courant', 'Internet Fibre', 'Sécurité 24/7'],
-    equipments: ['Piscine', 'Jardin', 'Garage', 'TV Smart 4K', 'Climatisation', 'Réfrigérateur', 'Machine à laver', 'Cuisine Équipée', 'Barbecue'],
-    ownerName: 'Marie Konaté',
-    ownerStatus: "Superhôte • Répond en moins d'une heure",
-    ownerPhone: '+223 76 12 34 56',
-    ownerWhatsapp: '+223 76 12 34 56',
-    additionalImages: [
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-      'https://images.unsplash.com/photo-1576941089067-2de3c901e126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-      'https://images.unsplash.com/photo-1572331165267-854da2b10ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80'
-    ]
-  },
-  {
-    id: '4',
-    title: 'Studio meublé',
-    location: 'Bamako, Hamdallaye',
-    price: 75000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.2,
-    reviews: 64,
-    imageUrl: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    description: "Studio confortable et fonctionnel, entièrement meublé et équipé. Idéal pour une personne seule ou un couple. Situé dans un quartier calme avec tous les commerces à proximité.",
-    rooms: 1,
-    bathrooms: 1,
-    features: ['Disponibilité robinet', 'Courant'],
-    equipments: ['Meuble Déco', 'TV', 'Climatisation', 'Réfrigérateur', 'Cuisine Équipée'],
-    ownerName: 'Ibrahim Touré',
-    ownerStatus: "Hôte réactif",
-    ownerPhone: '+223 76 87 65 43',
-    ownerWhatsapp: '+223 76 87 65 43',
-    additionalImages: [
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80'
-    ]
-  }
-];
+import { useProperties } from '@/hooks/useProperties';
 
 // Composant principal pour afficher les détails d'une propriété
 const PropertyDetails = () => {
   const { id } = useParams();
-  // Recherche de la propriété par ID, avec fallback sur la première propriété si non trouvée
-  const property = mockProperties.find(p => p.id === id);
-  
-  // Si aucune propriété n'est trouvée avec cet ID, utiliser la première propriété comme fallback
-  const propertyData = property || mockProperties[0];
-  const [isFavorite, setIsFavorite] = useState(false);
-  
-  // Tableau regroupant toutes les images (principale + additionnelles)
-  const allImages = [propertyData.imageUrl, ...(propertyData.additionalImages || [])];
+  const navigate = useNavigate();
+  const { getPropertyById, toggleFavorite } = useProperties();
+  const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
+  // Récupérer les données de la propriété
+  const property = id ? getPropertyById(id) : null;
+  const [isFavorite, setIsFavorite] = useState(property?.isFavorite || false);
+  
+  useEffect(() => {
+    // Simule un temps de chargement pour l'expérience utilisateur
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  useEffect(() => {
+    if (property) {
+      setIsFavorite(property.isFavorite || false);
+    }
+  }, [property]);
+  
+  // Si aucune propriété n'est trouvée
+  if (!loading && !property) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen p-6">
+        <h1 className="text-2xl font-bold mb-4">Propriété non trouvée</h1>
+        <p className="text-gray-600 mb-6">Cette propriété n'existe pas ou a été supprimée.</p>
+        <button 
+          onClick={() => navigate(-1)}
+          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+        >
+          Retour
+        </button>
+      </div>
+    );
+  }
+  
+  if (loading || !property) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+  
+  // Tableau regroupant toutes les images
+  const allImages = property.images || [property.imageUrl];
+  
   // Fonction pour basculer l'état favori
-  const toggleFavorite = () => {
+  const handleToggleFavorite = () => {
     setIsFavorite(!isFavorite);
+    if (id) {
+      toggleFavorite(id);
+    }
   };
   
   // Fonctions de navigation dans le carrousel d'images
@@ -158,7 +102,7 @@ const PropertyDetails = () => {
               <img 
                 key={index}
                 src={img} 
-                alt={`${propertyData.title} - image ${index + 1}`} 
+                alt={`${property.title} - image ${index + 1}`} 
                 className={`absolute w-full h-full object-cover transition-opacity duration-500 ${
                   index === currentImageIndex ? 'opacity-100' : 'opacity-0'
                 }`}
@@ -199,7 +143,7 @@ const PropertyDetails = () => {
         {/* Bouton de retour */}
         <button 
           className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md z-10"
-          onClick={() => window.history.back()}
+          onClick={() => navigate(-1)}
         >
           <ArrowLeft size={20} className="text-gray-700" />
         </button>
@@ -208,7 +152,7 @@ const PropertyDetails = () => {
         <div className="absolute top-4 right-4 flex space-x-2 z-10">
           <button 
             className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
-            onClick={toggleFavorite}
+            onClick={handleToggleFavorite}
           >
             <Heart 
               size={20} 
@@ -228,36 +172,40 @@ const PropertyDetails = () => {
         {/* Left column: Property details */}
         <div className="md:flex-1">
           {/* Titre et localisation */}
-          <h1 className="text-2xl font-bold">{propertyData.title}</h1>
+          <h1 className="text-2xl font-bold">{property.title}</h1>
           <div className="flex items-center mt-2 text-gray-600">
             <MapPin size={16} className="mr-1" />
-            <span>{propertyData.location}</span>
+            <span>{property.location}</span>
           </div>
           
           {/* Mobile only: Price and rating */}
           <div className="flex items-center justify-between mt-4 md:hidden">
             <div>
-              <span className="text-2xl font-bold">{propertyData.price.toLocaleString()} {propertyData.currency}</span>
-              <span className="text-gray-600">/{propertyData.period}</span>
+              <span className="text-2xl font-bold">{property.price.toLocaleString()} {property.currency}</span>
+              <span className="text-gray-600">/{property.period}</span>
             </div>
             <div className="flex items-center bg-white px-2 py-1 rounded-md border border-gray-100">
               <Star size={16} className="text-yellow-500 mr-1" fill="currentColor" />
-              <span className="font-medium">{propertyData.rating}</span>
-              <span className="text-gray-500 ml-1">({propertyData.reviews} avis)</span>
+              <span className="font-medium">{property.rating}</span>
+              <span className="text-gray-500 ml-1">({property.reviews || 0} avis)</span>
             </div>
           </div>
           
           {/* Caractéristiques principales */}
           <div className="flex flex-wrap gap-4 mt-6 p-4 bg-gray-50 rounded-lg">
-            <div className="flex items-center">
-              <Bed size={20} className="text-primary mr-2" />
-              <span>{propertyData.rooms} chambres</span>
-            </div>
-            <div className="flex items-center">
-              <Bath size={20} className="text-primary mr-2" />
-              <span>{propertyData.bathrooms} salles de bain</span>
-            </div>
-            {propertyData.features.map((feature, index) => (
+            {property.rooms && (
+              <div className="flex items-center">
+                <Bed size={20} className="text-primary mr-2" />
+                <span>{property.rooms} chambres</span>
+              </div>
+            )}
+            {property.bathrooms && (
+              <div className="flex items-center">
+                <Bath size={20} className="text-primary mr-2" />
+                <span>{property.bathrooms} salles de bain</span>
+              </div>
+            )}
+            {property.features?.map((feature, index) => (
               <div key={index} className="flex items-center">
                 <Check size={20} className="text-primary mr-2" />
                 <span>{feature}</span>
@@ -291,7 +239,7 @@ const PropertyDetails = () => {
             {/* Contenu des onglets */}
             <TabsContent value="description">
               <div className="mt-4">
-                <p className="text-gray-700">{propertyData.description}</p>
+                <p className="text-gray-700">{property.description}</p>
               </div>
             </TabsContent>
             <TabsContent value="equipments">
@@ -308,14 +256,14 @@ const PropertyDetails = () => {
           <div className="mt-8 pb-5 border-b md:hidden">
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
-                <span className="text-lg font-medium">{propertyData.ownerName.charAt(0)}</span>
+                <span className="text-lg font-medium">{property.ownerName?.charAt(0)}</span>
               </div>
               <div>
                 <p className="font-medium flex items-center">
-                  {propertyData.ownerName}
+                  {property.ownerName}
                   <UserCheck size={16} className="ml-2 text-primary" />
                 </p>
-                <p className="text-sm text-gray-600">{propertyData.ownerStatus}</p>
+                <p className="text-sm text-gray-600">{property.ownerStatus}</p>
               </div>
             </div>
           </div>
@@ -325,15 +273,15 @@ const PropertyDetails = () => {
         <div className="hidden md:block md:w-80 lg:w-96">
           <div className="sticky top-4">
             <BookingCard 
-              price={propertyData.price} 
-              currency={propertyData.currency} 
-              period={propertyData.period}
-              rating={propertyData.rating}
-              reviews={propertyData.reviews}
-              ownerName={propertyData.ownerName}
-              ownerStatus={propertyData.ownerStatus}
-              ownerPhone={propertyData.ownerPhone}
-              ownerWhatsapp={propertyData.ownerWhatsapp}
+              price={property.price} 
+              currency={property.currency} 
+              period={property.period}
+              rating={property.rating}
+              reviews={property.reviews || 0}
+              ownerName={property.ownerName || ""}
+              ownerStatus={property.ownerStatus || ""}
+              ownerPhone={property.ownerPhone || ""}
+              ownerWhatsapp={property.ownerWhatsapp || ""}
             />
           </div>
         </div>
@@ -341,11 +289,11 @@ const PropertyDetails = () => {
       
       {/* Mobile Bottom Bar */}
       <MobileBottomBar 
-        price={propertyData.price} 
-        currency={propertyData.currency} 
-        period={propertyData.period}
-        ownerPhone={propertyData.ownerPhone}
-        ownerWhatsapp={propertyData.ownerWhatsapp}
+        price={property.price} 
+        currency={property.currency} 
+        period={property.period}
+        ownerPhone={property.ownerPhone || ""}
+        ownerWhatsapp={property.ownerWhatsapp || ""}
       />
     </div>
   );

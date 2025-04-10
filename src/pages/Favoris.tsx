@@ -1,43 +1,17 @@
+
 import React from 'react';
 import { Heart } from 'lucide-react';
 import PropertyCard from '@/components/properties/PropertyCard';
-
-const favoritesProperties = [
-  {
-    id: '3',
-    title: 'Ramen Sapporo',
-    location: 'Bamako, Baco Djicoronie Acie',
-    price: 350000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.8,
-    imageUrl: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    isFavorite: true,
-    images: [
-      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-      'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    ]
-  },
-  {
-    id: '8',
-    title: 'Ramen Sapporo',
-    location: 'Bamako, Baco Djicoronie Acie',
-    price: 220000,
-    currency: 'FCFA',
-    period: 'Mois',
-    rating: 4.5,
-    imageUrl: 'https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-    isAvailable: true,
-    isFavorite: true,
-    images: [
-      'https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
-      'https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    ]
-  }
-];
+import { useProperties } from '@/hooks/useProperties';
 
 const Favoris = () => {
-  const hasFavorites = favoritesProperties.length > 0;
+  const { getFavoriteProperties, toggleFavorite } = useProperties();
+  const favoriteProperties = getFavoriteProperties();
+  const hasFavorites = favoriteProperties.length > 0;
+  
+  const handleToggleFavorite = (id: string) => {
+    toggleFavorite(id);
+  };
   
   return (
     <div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto pb-20 md:pb-10">
@@ -45,8 +19,12 @@ const Favoris = () => {
       
       {hasFavorites ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {favoritesProperties.map(property => (
-            <PropertyCard key={property.id} {...property} />
+          {favoriteProperties.map(property => (
+            <PropertyCard 
+              key={property.id} 
+              property={property} 
+              onToggleFavorite={handleToggleFavorite} 
+            />
           ))}
         </div>
       ) : (
