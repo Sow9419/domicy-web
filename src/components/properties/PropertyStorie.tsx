@@ -10,7 +10,7 @@ interface PropertyStorieProps {
 }
 
 const PropertyStorie = ({ property }: PropertyStorieProps) => {
-  const [isFavorite, setIsFavorite] = React.useState(property.isFavorite || false);
+  const [isFavorite, setIsFavorite] = React.useState(property.isFavorite);
   
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
