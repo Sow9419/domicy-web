@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Heart,
   Share2,
@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PropertyEquipment from '@/components/properties/PropertyEquipment';
 import BookingCard from '@/components/properties/BookingCard';
 import MobileBottomBar from '@/components/properties/MobileBottomBar';
+import { toast } from '@/components/ui/use-toast';
 
 // Données mockées pour le développement - Synchronisées avec celles de Explorer.tsx
 const mockProperties = [
@@ -122,12 +123,36 @@ const mockProperties = [
 // Composant principal pour afficher les détails d'une propriété
 const PropertyDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  
   // Recherche de la propriété par ID, avec fallback sur la première propriété si non trouvée
   const property = mockProperties.find(p => p.id === id);
   
-  // Si aucune propriété n'est trouvée avec cet ID, utiliser la première propriété comme fallback
-  const propertyData = property || mockProperties[0];
+  // Si aucune propriété n'est trouvée avec cet ID
+  const [propertyData, setPropertyData] = useState(property || mockProperties[0]);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
+  // Effet pour initialiser les données de la propriété
+  useEffect(() => {
+    if (id) {
+      const foundProperty = mockProperties.find(p => p.id === id);
+      if (foundProperty) {
+        setPropertyData(foundProperty);
+        setIsFavorite(foundProperty.isFavorite || false);
+      } else {
+        // Afficher un toast si la propriété n'est pas trouvée
+        toast({
+          title: "Propriété non trouvée",
+          description: "La propriété que vous cherchez n'existe pas ou a été supprimée.",
+          variant: "destructive"
+        });
+        // Rediriger vers la page d'accueil après 2 secondes
+        setTimeout(() => navigate('/'), 2000);
+      }
+    }
+    setLoading(false);
+  }, [id, navigate]);
   
   // Tableau regroupant toutes les images (principale + additionnelles)
   const allImages = [propertyData.imageUrl, ...(propertyData.additionalImages || [])];
@@ -136,6 +161,13 @@ const PropertyDetails = () => {
   // Fonction pour basculer l'état favori
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
+    toast({
+      title: isFavorite ? "Retiré des favoris" : "Ajouté aux favoris",
+      description: isFavorite ? 
+        "Cette propriété a été retirée de vos favoris" : 
+        "Cette propriété a été ajoutée à vos favoris",
+      duration: 2000
+    });
   };
   
   // Fonctions de navigation dans le carrousel d'images
@@ -146,6 +178,35 @@ const PropertyDetails = () => {
   const goToPreviousImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + allImages.length) % allImages.length);
   };
+
+  // Partager la propriété
+  const shareProperty = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: propertyData.title,
+        text: `Découvrez cette propriété: ${propertyData.title} à ${propertyData.location}`,
+        url: window.location.href,
+      })
+      .catch((error) => console.log('Erreur de partage', error));
+    } else {
+      // Copier le lien dans le presse-papier si l'API Web Share n'est pas disponible
+      navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Lien copié",
+        description: "Le lien de cette propriété a été copié dans votre presse-papier",
+        duration: 2000
+      });
+    }
+  };
+  
+  // Afficher un indicateur de chargement pendant que les données sont récupérées
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full"></div>
+      </div>
+    );
+  }
   
   return (
     <div className="max-w-7xl mx-auto pb-28 md:pb-10">
@@ -217,6 +278,7 @@ const PropertyDetails = () => {
           </button>
           <button 
             className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
+            onClick={shareProperty}
           >
             <Share2 size={20} className="text-gray-700" />
           </button>
@@ -295,7 +357,7 @@ const PropertyDetails = () => {
               </div>
             </TabsContent>
             <TabsContent value="equipments">
-              <PropertyEquipment />
+              <PropertyEquipment equipments={propertyData.equipments} />
             </TabsContent>
             <TabsContent value="reviews">
               <div className="mt-4">
