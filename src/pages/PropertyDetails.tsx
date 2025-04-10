@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -151,6 +152,7 @@ const PropertyDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
+  // All hooks must be at the top level and in the same order every render
   const [propertyData, setPropertyData] = useState<PropertyType | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
