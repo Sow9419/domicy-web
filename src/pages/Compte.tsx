@@ -94,35 +94,42 @@ const Compte = () => {
   const isMobile = useIsMobile();
   
   return (
-    <div className="px-4 md:px-6 lg:px-8 max-w-2xl mx-auto pb-20 md:pb-10">
+    <div className="px-4 md:px-6 lg:px-8 max-w-6xl mx-auto pb-20 md:pb-10">
+      {/* Section du profil toujours en pleine largeur */}
       <ProfileSection 
         name={accountData.profile.name}
         memberSince={accountData.profile.memberSince}
         avatarUrl={accountData.profile.avatarUrl}
       />
       
-      <PersonalInfoSection personalInfo={accountData.personalInfo} />
+      {/* Mise en page en grille pour desktop, colonne unique pour mobile */}
+      <div className={`grid ${!isMobile ? 'grid-cols-2 gap-6' : 'grid-cols-1 gap-4'}`}>
+        {/* Colonne gauche */}
+        <div className="space-y-6">
+          <PersonalInfoSection personalInfo={accountData.personalInfo} />
+          <VerificationSection verificationItems={accountData.verification} />
+          <SubscriptionSection isPremium={accountData.subscription.isPremium} />
+          <AdsManagementSection adsCount={accountData.ads.count} />
+        </div>
+        
+        {/* Colonne droite */}
+        <div className="space-y-6">
+          <ContactHistorySection contacts={accountData.contacts} />
+          <PaymentMethodsSection paymentMethods={accountData.paymentMethods} />
+          <RatingsSection 
+            ratings={accountData.ratings}
+            averageRating={accountData.averageRating}
+            totalRatings={accountData.totalRatings}
+          />
+        </div>
+      </div>
       
-      <VerificationSection verificationItems={accountData.verification} />
-      
-      <SubscriptionSection isPremium={accountData.subscription.isPremium} />
-      
-      <AdsManagementSection adsCount={accountData.ads.count} />
-      
-      <ContactHistorySection contacts={accountData.contacts} />
-      
-      <PaymentMethodsSection paymentMethods={accountData.paymentMethods} />
-      
-      <RatingsSection 
-        ratings={accountData.ratings}
-        averageRating={accountData.averageRating}
-        totalRatings={accountData.totalRatings}
-      />
-      
-      {/* Bouton Déconnexion */}
-      <Button variant="destructive" className="w-full bg-green-500 hover:bg-green-600 mb-6">
-        <LogOut className="mr-2 h-4 w-4" /> Se déconnecter
-      </Button>
+      {/* Bouton Déconnexion - toujours en pleine largeur */}
+      <div className="mt-8">
+        <Button variant="destructive" className="w-full bg-green-500 hover:bg-green-600 mb-6">
+          <LogOut className="mr-2 h-4 w-4" /> Se déconnecter
+        </Button>
+      </div>
     </div>
   );
 };
