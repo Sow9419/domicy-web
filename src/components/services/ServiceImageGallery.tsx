@@ -27,10 +27,10 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
     <div className="relative">
       <Carousel 
         className="w-full"
-        onSelectionChange={(index) => {
-          // Only update if the index is a number
-          if (typeof index === 'number') {
-            setCurrentIndex(index);
+        onSelect={(api) => {
+          if (api) {
+            const selectedIndex = api.selectedScrollSnap();
+            setCurrentIndex(selectedIndex);
           }
         }}
       >
@@ -49,12 +49,14 @@ const ServiceImageGallery: React.FC<ServiceImageGalleryProps> = ({ images, categ
         </CarouselContent>
         <CarouselPrevious 
           className="left-2 bg-white/80 hover:bg-white text-gray-900 border-none"
-          icon={<ChevronLeft className="h-5 w-5" />}
-        />
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </CarouselPrevious>
         <CarouselNext 
           className="right-2 bg-white/80 hover:bg-white text-gray-900 border-none"
-          icon={<ChevronRight className="h-5 w-5" />}
-        />
+        >
+          <ChevronRight className="h-5 w-5" />
+        </CarouselNext>
       </Carousel>
       
       <div className="absolute bottom-4 left-4 z-10">
