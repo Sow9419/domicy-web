@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -20,8 +19,30 @@ import BookingCard from '@/components/properties/BookingCard';
 import MobileBottomBar from '@/components/properties/MobileBottomBar';
 import { toast } from '@/components/ui/use-toast';
 
-// Données mockées pour le développement - Synchronisées avec celles de Explorer.tsx
-const mockProperties = [
+interface PropertyType {
+  id: string;
+  title: string;
+  location: string;
+  price: number;
+  currency: string;
+  period: string;
+  rating: number;
+  reviews: number;
+  imageUrl: string;
+  description: string;
+  rooms: number;
+  bathrooms: number;
+  features: string[];
+  equipments: string[];
+  ownerName: string;
+  ownerStatus: string;
+  ownerPhone: string;
+  ownerWhatsapp: string;
+  additionalImages: string[];
+  isFavorite?: boolean;
+}
+
+const mockProperties: PropertyType[] = [
   {
     id: '1',
     title: 'Ramen Sapporo',
@@ -44,7 +65,8 @@ const mockProperties = [
     additionalImages: [
       'https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
-    ]
+    ],
+    isFavorite: false
   },
   {
     id: '2',
@@ -68,7 +90,8 @@ const mockProperties = [
     additionalImages: [
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2158&q=80'
-    ]
+    ],
+    isFavorite: false
   },
   {
     id: '3',
@@ -93,7 +116,8 @@ const mockProperties = [
       'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
       'https://images.unsplash.com/photo-1576941089067-2de3c901e126?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80',
       'https://images.unsplash.com/photo-1572331165267-854da2b10ccc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80'
-    ]
+    ],
+    isFavorite: false
   },
   {
     id: '4',
@@ -116,24 +140,21 @@ const mockProperties = [
     ownerWhatsapp: '+223 76 87 65 43',
     additionalImages: [
       'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80'
-    ]
+    ],
+    isFavorite: false
   }
 ];
 
-// Composant principal pour afficher les détails d'une propriété
 const PropertyDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   
-  // Recherche de la propriété par ID, avec fallback sur la première propriété si non trouvée
   const property = mockProperties.find(p => p.id === id);
   
-  // Si aucune propriété n'est trouvée avec cet ID
-  const [propertyData, setPropertyData] = useState(property || mockProperties[0]);
+  const [propertyData, setPropertyData] = useState<PropertyType>(property || mockProperties[0]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [loading, setLoading] = useState(true);
   
-  // Effet pour initialiser les données de la propriété
   useEffect(() => {
     if (id) {
       const foundProperty = mockProperties.find(p => p.id === id);
@@ -141,24 +162,20 @@ const PropertyDetails = () => {
         setPropertyData(foundProperty);
         setIsFavorite(foundProperty.isFavorite || false);
       } else {
-        // Afficher un toast si la propriété n'est pas trouvée
         toast({
           title: "Propriété non trouvée",
           description: "La propriété que vous cherchez n'existe pas ou a été supprimée.",
           variant: "destructive"
         });
-        // Rediriger vers la page d'accueil après 2 secondes
         setTimeout(() => navigate('/'), 2000);
       }
     }
     setLoading(false);
   }, [id, navigate]);
   
-  // Tableau regroupant toutes les images (principale + additionnelles)
   const allImages = [propertyData.imageUrl, ...(propertyData.additionalImages || [])];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  // Fonction pour basculer l'état favori
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
     toast({
@@ -170,7 +187,6 @@ const PropertyDetails = () => {
     });
   };
   
-  // Fonctions de navigation dans le carrousel d'images
   const goToNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
   };
@@ -179,7 +195,6 @@ const PropertyDetails = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + allImages.length) % allImages.length);
   };
 
-  // Partager la propriété
   const shareProperty = () => {
     if (navigator.share) {
       navigator.share({
@@ -189,7 +204,6 @@ const PropertyDetails = () => {
       })
       .catch((error) => console.log('Erreur de partage', error));
     } else {
-      // Copier le lien dans le presse-papier si l'API Web Share n'est pas disponible
       navigator.clipboard.writeText(window.location.href);
       toast({
         title: "Lien copié",
@@ -199,7 +213,6 @@ const PropertyDetails = () => {
     }
   };
   
-  // Afficher un indicateur de chargement pendant que les données sont récupérées
   if (loading) {
     return (
       <div className="h-screen flex items-center justify-center">
@@ -210,9 +223,7 @@ const PropertyDetails = () => {
   
   return (
     <div className="max-w-7xl mx-auto pb-28 md:pb-10">
-      {/* Section du carrousel d'images */}
       <div className="relative w-full mb-6">
-        {/* Carrousel mobile avec navigation tactile */}
         <div className="relative">
           <div className="w-full h-[350px] md:h-[400px] relative">
             {allImages.map((img, index) => (
@@ -226,10 +237,8 @@ const PropertyDetails = () => {
               />
             ))}
             
-            {/* Overlay gradient for better visibility of controls */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
             
-            {/* Boutons de navigation du carrousel */}
             <button 
               onClick={goToPreviousImage}
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 rounded-full p-2 shadow hover:bg-white/90 z-10"
@@ -243,7 +252,6 @@ const PropertyDetails = () => {
               <ChevronRight size={20} className="text-gray-700" />
             </button>
             
-            {/* Indicateurs de position dans le carrousel */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-1 z-10">
               {allImages.map((_, index) => (
                 <div 
@@ -257,7 +265,6 @@ const PropertyDetails = () => {
           </div>
         </div>
         
-        {/* Bouton de retour */}
         <button 
           className="absolute top-4 left-4 w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md z-10"
           onClick={() => window.history.back()}
@@ -265,7 +272,6 @@ const PropertyDetails = () => {
           <ArrowLeft size={20} className="text-gray-700" />
         </button>
         
-        {/* Boutons d'action (favoris et partage) */}
         <div className="absolute top-4 right-4 flex space-x-2 z-10">
           <button 
             className="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-md"
@@ -285,18 +291,14 @@ const PropertyDetails = () => {
         </div>
       </div>
       
-      {/* Main content with two columns on desktop */}
       <div className="px-4 md:px-8 md:flex md:gap-8">
-        {/* Left column: Property details */}
         <div className="md:flex-1">
-          {/* Titre et localisation */}
           <h1 className="text-2xl font-bold">{propertyData.title}</h1>
           <div className="flex items-center mt-2 text-gray-600">
             <MapPin size={16} className="mr-1" />
             <span>{propertyData.location}</span>
           </div>
           
-          {/* Mobile only: Price and rating */}
           <div className="flex items-center justify-between mt-4 md:hidden">
             <div>
               <span className="text-2xl font-bold">{propertyData.price.toLocaleString()} {propertyData.currency}</span>
@@ -309,7 +311,6 @@ const PropertyDetails = () => {
             </div>
           </div>
           
-          {/* Caractéristiques principales */}
           <div className="flex flex-wrap gap-4 mt-6 p-4 bg-gray-50 rounded-lg">
             <div className="flex items-center">
               <Bed size={20} className="text-primary mr-2" />
@@ -327,7 +328,6 @@ const PropertyDetails = () => {
             ))}
           </div>
           
-          {/* Onglets d'information */}
           <Tabs defaultValue="description" className="mt-6">
             <TabsList className="w-full justify-start border-b rounded-none bg-transparent">
               <TabsTrigger 
@@ -350,7 +350,6 @@ const PropertyDetails = () => {
               </TabsTrigger>
             </TabsList>
             
-            {/* Contenu des onglets */}
             <TabsContent value="description">
               <div className="mt-4">
                 <p className="text-gray-700">{propertyData.description}</p>
@@ -366,7 +365,6 @@ const PropertyDetails = () => {
             </TabsContent>
           </Tabs>
           
-          {/* Mobile only: Owner information */}
           <div className="mt-8 pb-5 border-b md:hidden">
             <div className="flex items-center">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
@@ -383,7 +381,6 @@ const PropertyDetails = () => {
           </div>
         </div>
         
-        {/* Right column: Booking card (desktop only) */}
         <div className="hidden md:block md:w-80 lg:w-96">
           <div className="sticky top-4">
             <BookingCard 
@@ -401,7 +398,6 @@ const PropertyDetails = () => {
         </div>
       </div>
       
-      {/* Mobile Bottom Bar */}
       <MobileBottomBar 
         price={propertyData.price} 
         currency={propertyData.currency} 
