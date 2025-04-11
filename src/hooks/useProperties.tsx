@@ -60,11 +60,26 @@ export const useProperties = () => {
     return updatedProperties.find(property => property.id === id)?.isFavorite;
   };
 
+  // Fonction pour rechercher des propriétés
+  const searchProperties = (searchTerm: string) => {
+    // Logique de recherche simple: par localisation
+    const term = searchTerm.toLowerCase().trim();
+    if (!term) return properties;
+    
+    const results = properties.filter(property => 
+      property.location.toLowerCase().includes(term) || 
+      property.title.toLowerCase().includes(term)
+    );
+    
+    return results;
+  };
+
   return {
     properties,
     getAllProperties,
     getPropertyById,
     getFavoriteProperties,
-    toggleFavorite
+    toggleFavorite,
+    searchProperties
   };
 };

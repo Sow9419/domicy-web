@@ -8,14 +8,27 @@ import { Button } from '@/components/ui/button';
 import { useProperties } from '@/hooks/useProperties';
 import AuthButtons from './AuthButtons';
 
+// Create a global state object for filtering
+export const filterState = {
+  selectedLocation: null as string | null,
+  setSelectedLocation: (location: string | null) => {
+    filterState.selectedLocation = location;
+  }
+};
+
 const Header = () => {
   const isMobile = useIsMobile();
-  const { searchProperties } = useProperties();
+  const { getAllProperties, properties } = useProperties();
   const [searchTerm, setSearchTerm] = React.useState('');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    searchProperties(searchTerm);
+    // Use the search term to filter properties, for example by location
+    if (searchTerm) {
+      filterState.setSelectedLocation(searchTerm);
+    } else {
+      filterState.setSelectedLocation(null);
+    }
   };
 
   return (
