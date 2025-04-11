@@ -50,12 +50,12 @@
     "bathrooms": 2,
     "features": ["Disponibilité robinet", "Courant", "Internet Fibre"],
     "equipments": [
-      {"name": "Parking", "available": true, "type": "garage"},
+      {"name": "Voiture Garage", "available": true, "type": "garage"},
       {"name": "Meuble Déco", "available": true, "type": "meuble"},
       {"name": "TV Smart 4K", "available": true, "type": "tv"},
       {"name": "Climatisation", "available": false, "type": "clim"},
       {"name": "Réfrigérateur", "available": true, "type": "frigo"},
-      {"name": "Machine à laver", "available": true, "type": "lave-linge"},
+      {"name": "Machine à Laver", "available": true, "type": "lave-linge"},
       {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
     ],
     "ownerName": "Jean Dupont",
@@ -87,11 +87,11 @@
     "equipments": [
       {"name": "Piscine", "available": true, "type": "piscine"},
       {"name": "Jardin", "available": true, "type": "jardin"},
-      {"name": "Garage", "available": true, "type": "garage"},
+      {"name": "Voiture Garage", "available": true, "type": "garage"},
       {"name": "TV Smart 4K", "available": true, "type": "tv"},
       {"name": "Climatisation", "available": true, "type": "clim"},
       {"name": "Réfrigérateur", "available": false, "type": "frigo"},
-      {"name": "Machine à laver", "available": true, "type": "lave-linge"},
+      {"name": "Machine à Laver", "available": true, "type": "lave-linge"},
       {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
     ],
     "ownerName": "Marie Konaté",
@@ -123,7 +123,7 @@
     "features": ["Disponibilité robinet", "Courant"],
     "equipments": [
       {"name": "Meuble Déco", "available": true, "type": "meuble"},
-      {"name": "TV", "available": true, "type": "tv"},
+      {"name": "TV Smart 4K", "available": true, "type": "tv"},
       {"name": "Climatisation", "available": true, "type": "clim"},
       {"name": "Réfrigérateur", "available": false, "type": "frigo"},
       {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
@@ -177,13 +177,17 @@
     "rating": 4.3,
     "imageUrl": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
     "description": "Chambre confortable dans une colocation, avec accès à la cuisine et la salle de bain partagées.",
-    "rooms": 1,
-    "bathrooms": 1,
+    "rooms": 5,
+    "bathrooms": 2,
     "features": ["Disponibilité robinet", "Courant"],
     "equipments": [
-      {"name": "Lit", "available": true, "type": "autre"},
-      {"name": "Bureau", "available": false, "type": "autre"},
-      {"name": "Ventilateur", "available": true, "type": "autre"}
+      {"name": "Voiture Garage", "available": true, "type": "garage"},
+      {"name": "Meuble Déco", "available": true, "type": "meuble"},
+      {"name": "TV Smart 4K", "available": true, "type": "tv"},
+      {"name": "Climatisation", "available": false, "type": "clim"},
+      {"name": "Réfrigérateur", "available": true, "type": "frigo"},
+      {"name": "Machine à Laver", "available": true, "type": "lave-linge"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
     ],
     "ownerName": "Fatou Sidibé",
     "ownerStatus": "Hôte sympathique",
@@ -211,7 +215,7 @@
     "equipments": [
       {"name": "Cuisine Équipée", "available": true, "type": "cuisine"},
       {"name": "Climatisation", "available": false, "type": "clim"},
-      {"name": "Machine à laver", "available": true, "type": "autre"}
+      {"name": "Machine à Laver", "available": true, "type": "lave-linge"}
     ],
     "ownerName": "Moussa Traoré",
     "ownerStatus": "Superhôte",
