@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
@@ -89,6 +88,24 @@ const PropertyDetails = () => {
 
   const goToPreviousImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex - 1 + allImages.length) % allImages.length);
+  };
+
+  // Transform equipment data to ensure type safety
+  const transformEquipments = (equipments: any[] = []) => {
+    return equipments.map(equipment => {
+      if (typeof equipment === 'object' && equipment !== null && 'available' in equipment) {
+        return {
+          name: equipment.name || '',
+          available: equipment.available,
+          type: equipment.type || 'default'
+        };
+      }
+      return {
+        name: String(equipment),
+        available: true,
+        type: 'default'
+      };
+    });
   };
   
   return (
@@ -243,7 +260,7 @@ const PropertyDetails = () => {
               </div>
             </TabsContent>
             <TabsContent value="equipments">
-              <PropertyEquipment />
+              <PropertyEquipment equipments={transformEquipments(property.equipments)} />
             </TabsContent>
             <TabsContent value="reviews">
               <div className="mt-4">

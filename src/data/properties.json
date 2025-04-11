@@ -14,7 +14,15 @@
     "rooms": 2,
     "bathrooms": 1,
     "features": ["Disponibilité robinet", "Courant"],
-    "equipments": ["Voiture Garage", "Meuble Déco", "TV Smart 4K", "Climatisation", "Réfrigérateur", "Machine à Café", "Cuisine Équipée"],
+    "equipments": [
+      {"name": "Voiture Garage", "available": true, "type": "garage"},
+      {"name": "Meuble Déco", "available": true, "type": "meuble"},
+      {"name": "TV Smart 4K", "available": false, "type": "tv"},
+      {"name": "Climatisation", "available": true, "type": "clim"},
+      {"name": "Réfrigérateur", "available": true, "type": "frigo"},
+      {"name": "Machine à Café", "available": false, "type": "cafe"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
+    ],
     "ownerName": "Sophie Dubois",
     "ownerStatus": "Superhôte • Répond en moins d'une heure",
     "ownerPhone": "+223 76 45 23 67",
@@ -41,7 +49,15 @@
     "rooms": 3,
     "bathrooms": 2,
     "features": ["Disponibilité robinet", "Courant", "Internet Fibre"],
-    "equipments": ["Parking", "Meuble Déco", "TV Smart 4K", "Climatisation", "Réfrigérateur", "Machine à laver", "Cuisine Équipée"],
+    "equipments": [
+      {"name": "Parking", "available": true, "type": "garage"},
+      {"name": "Meuble Déco", "available": true, "type": "meuble"},
+      {"name": "TV Smart 4K", "available": true, "type": "tv"},
+      {"name": "Climatisation", "available": false, "type": "clim"},
+      {"name": "Réfrigérateur", "available": true, "type": "frigo"},
+      {"name": "Machine à laver", "available": true, "type": "lave-linge"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
+    ],
     "ownerName": "Jean Dupont",
     "ownerStatus": "Hôte expérimenté • Répond rapidement",
     "ownerPhone": "+223 76 98 76 54",
@@ -68,7 +84,16 @@
     "rooms": 5,
     "bathrooms": 3,
     "features": ["Disponibilité robinet", "Courant", "Internet Fibre", "Sécurité 24/7"],
-    "equipments": ["Piscine", "Jardin", "Garage", "TV Smart 4K", "Climatisation", "Réfrigérateur", "Machine à laver", "Cuisine Équipée", "Barbecue"],
+    "equipments": [
+      {"name": "Piscine", "available": true, "type": "piscine"},
+      {"name": "Jardin", "available": true, "type": "jardin"},
+      {"name": "Garage", "available": true, "type": "garage"},
+      {"name": "TV Smart 4K", "available": true, "type": "tv"},
+      {"name": "Climatisation", "available": true, "type": "clim"},
+      {"name": "Réfrigérateur", "available": false, "type": "frigo"},
+      {"name": "Machine à laver", "available": true, "type": "lave-linge"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
+    ],
     "ownerName": "Marie Konaté",
     "ownerStatus": "Superhôte • Répond en moins d'une heure",
     "ownerPhone": "+223 76 12 34 56",
@@ -96,7 +121,13 @@
     "rooms": 1,
     "bathrooms": 1,
     "features": ["Disponibilité robinet", "Courant"],
-    "equipments": ["Meuble Déco", "TV", "Climatisation", "Réfrigérateur", "Cuisine Équipée"],
+    "equipments": [
+      {"name": "Meuble Déco", "available": true, "type": "meuble"},
+      {"name": "TV", "available": true, "type": "tv"},
+      {"name": "Climatisation", "available": true, "type": "clim"},
+      {"name": "Réfrigérateur", "available": false, "type": "frigo"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"}
+    ],
     "ownerName": "Ibrahim Touré",
     "ownerStatus": "Hôte réactif",
     "ownerPhone": "+223 76 87 65 43",
@@ -121,7 +152,11 @@
     "rooms": 4,
     "bathrooms": 2,
     "features": ["Disponibilité robinet", "Courant", "Internet"],
-    "equipments": ["Jardin", "Cuisine Équipée", "Climatisation"],
+    "equipments": [
+      {"name": "Jardin", "available": true, "type": "jardin"},
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"},
+      {"name": "Climatisation", "available": false, "type": "clim"}
+    ],
     "ownerName": "Amadou Diallo",
     "ownerStatus": "Hôte expérimenté",
     "ownerPhone": "+223 76 54 32 10",
@@ -145,7 +180,11 @@
     "rooms": 1,
     "bathrooms": 1,
     "features": ["Disponibilité robinet", "Courant"],
-    "equipments": ["Lit", "Bureau", "Ventilateur"],
+    "equipments": [
+      {"name": "Lit", "available": true, "type": "autre"},
+      {"name": "Bureau", "available": false, "type": "autre"},
+      {"name": "Ventilateur", "available": true, "type": "autre"}
+    ],
     "ownerName": "Fatou Sidibé",
     "ownerStatus": "Hôte sympathique",
     "ownerPhone": "+223 76 98 76 54",
@@ -169,7 +208,11 @@
     "rooms": 3,
     "bathrooms": 2,
     "features": ["Disponibilité robinet", "Courant", "Internet Fibre"],
-    "equipments": ["Cuisine Équipée", "Climatisation", "Machine à laver"],
+    "equipments": [
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"},
+      {"name": "Climatisation", "available": false, "type": "clim"},
+      {"name": "Machine à laver", "available": true, "type": "autre"}
+    ],
     "ownerName": "Moussa Traoré",
     "ownerStatus": "Superhôte",
     "ownerPhone": "+223 76 12 34 56",
@@ -193,7 +236,11 @@
     "rooms": 2,
     "bathrooms": 1,
     "features": ["Disponibilité robinet", "Courant", "Internet Fibre"],
-    "equipments": ["Cuisine Équipée", "Climatisation", "TV Smart 4K"],
+    "equipments": [
+      {"name": "Cuisine Équipée", "available": true, "type": "cuisine"},
+      {"name": "Climatisation", "available": true, "type": "clim"},
+      {"name": "TV Smart 4K", "available": false, "type": "tv"}
+    ],
     "ownerName": "Aïcha Diallo",
     "ownerStatus": "Hôte expérimenté",
     "ownerPhone": "+223 76 87 65 43",
