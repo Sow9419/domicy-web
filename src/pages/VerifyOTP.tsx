@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -52,9 +52,10 @@ const VerifyOTP: React.FC = () => {
               onChange={setOtp}
               render={({ slots }) => (
                 <InputOTPGroup className="gap-2 justify-center">
-                  {slots.map((slot, index) => (
+                  {slots.map((slot, i) => (
                     <InputOTPSlot
-                      key={index}
+                      key={i}
+                      index={i}
                       {...slot}
                       className="rounded-md border-gray-300 w-12 h-12"
                     />
