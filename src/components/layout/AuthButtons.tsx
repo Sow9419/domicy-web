@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { LogOut, Settings, User, UserPlus, UserRound } from "lucide-react";
+import { LogOut, Settings, User, UserPlus, UserRound, LogIn } from "lucide-react";
 
 const AuthButtons: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -80,17 +80,21 @@ const AuthButtons: React.FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <div className="flex flex-col p-2 gap-2">
-          <AuthDialog 
-            triggerText="Se connecter" 
-            initialForm="login" 
-            className="w-full justify-start"
-          />
-          <AuthDialog 
-            triggerText="S'inscrire" 
-            initialForm="signup" 
-            className="w-full justify-start bg-green-500 hover:bg-green-600 text-white"
-          />
+        <div className="flex flex-col">
+          <DropdownMenuItem asChild>
+            <AuthDialog 
+              triggerText={(<div className="flex items-center"><LogIn className="mr-2 h-4 w-4 text-black" /> <span className="text-black">Se connecter</span></div>) as unknown as string}
+              initialForm="login" 
+              className="w-full justify-start text-sm bg-transparent hover:bg-transparent"
+            />
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <AuthDialog 
+              triggerText={(<div className="flex items-center"><UserPlus className="mr-2 h-4 w-4 text-black" /> <span className="text-black">S'inscrire</span></div>) as unknown as string}
+              initialForm="signup" 
+              className="w-full justify-start text-sm bg-transparent hover:bg-transparent"
+            />
+          </DropdownMenuItem>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
