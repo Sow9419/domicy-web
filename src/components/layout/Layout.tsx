@@ -18,8 +18,8 @@ const Layout = () => {
     <div className="min-h-screen bg-white relative">
       {!isPropertyDetailsPage && !isServicePage && !isAnnoncePage && <Sidebar />}
       <div className={`${isMobile && !isPropertyDetailsPage && !isServicePage && !isAnnoncePage ? '' : isPropertyDetailsPage || isServicePage || isAnnoncePage ? '' : 'md:ml-16'}`}>
-        {!isPropertyDetailsPage && !isServicePage && !isAnnoncePage && <Header />}
-        <main className={`${isMobile && !isPropertyDetailsPage && !isServicePage && !isAnnoncePage ? 'pb-16' : ''} ${!isPropertyDetailsPage && !isServicePage && !isAnnoncePage ? 'pt-16 md:pt-20' : ''}`}>
+        <main className={`${isMobile && !isPropertyDetailsPage && !isServicePage && !isAnnoncePage ? 'pb-16' : ''}`}>
+          {!isPropertyDetailsPage && !isServicePage && !isAnnoncePage && <Header />}
           <Outlet />
         </main>
       </div>

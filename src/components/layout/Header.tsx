@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Search, Bell } from 'lucide-react';
+import { Search, Bell, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useProperties } from '@/hooks/useProperties';
@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
+    <header className="bg-white border-b border-gray-200">
       <div className="flex items-center justify-between h-16 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex items-center">
           <Link to="/" className="text-xl font-bold text-green-500 mr-4">
@@ -52,6 +52,14 @@ const Header = () => {
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                 size={18}
               />
+              <Button 
+                type="button" 
+                variant="ghost" 
+                size="icon" 
+                className="absolute right-2 top-1/2 transform -translate-y-1/2"
+              >
+                <Filter size={18} className="text-gray-400" />
+              </Button>
             </form>
           )}
         </div>
@@ -60,12 +68,6 @@ const Header = () => {
           {!isMobile && (
             <Button variant="ghost" size="sm" className="text-sm">
               Mettre mon logement sur Logo
-            </Button>
-          )}
-          
-          {!isMobile && (
-            <Button variant="ghost" size="icon">
-              <Bell size={20} className="text-gray-700" />
             </Button>
           )}
           

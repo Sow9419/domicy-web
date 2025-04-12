@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Settings, User, UserPlus, UserRound } from "lucide-react";
 
 const AuthButtons: React.FC = () => {
   const { isAuthenticated, user, logout } = useAuth();
@@ -33,10 +33,10 @@ const AuthButtons: React.FC = () => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+          <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+            <Avatar className="h-10 w-10 border border-gray-200">
               <AvatarImage src={user.profileImage || ''} alt={user.fullName || user.email} />
-              <AvatarFallback>{user.fullName ? getInitials(user.fullName) : 'U'}</AvatarFallback>
+              <AvatarFallback className="bg-green-50 text-green-500">{user.fullName ? getInitials(user.fullName) : 'U'}</AvatarFallback>
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
@@ -69,18 +69,31 @@ const AuthButtons: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <AuthDialog 
-        triggerText="Se connecter" 
-        initialForm="login" 
-        className={isMobile ? "hidden" : ""}
-      />
-      <AuthDialog 
-        triggerText="S'inscrire" 
-        initialForm="signup" 
-        className="bg-green-500 hover:bg-green-600 text-white"
-      />
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+          <Avatar className="h-10 w-10 border border-gray-200">
+            <AvatarFallback className="bg-gray-100 text-gray-500">
+              <UserRound className="h-5 w-5" />
+            </AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <div className="flex flex-col p-2 gap-2">
+          <AuthDialog 
+            triggerText="Se connecter" 
+            initialForm="login" 
+            className="w-full justify-start"
+          />
+          <AuthDialog 
+            triggerText="S'inscrire" 
+            initialForm="signup" 
+            className="w-full justify-start bg-green-500 hover:bg-green-600 text-white"
+          />
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
