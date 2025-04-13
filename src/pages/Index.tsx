@@ -1,13 +1,11 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import HeroSection from '@/components/home/HeroSection';
 import PropertySection from '@/components/home/PropertySection';
 import PropertyStorieSection from '@/components/properties/PropertyStorie';
-import FeatureCard from '@/components/home/FeatureCard';
+import FeatureCard, { ServicesList } from '@/components/home/FeatureCard';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useProperties } from '@/hooks/useProperties';
 import { useServices } from '@/hooks/useServices';
-
 
 const Index = () => {
   const isMobile = useIsMobile();
@@ -50,7 +48,11 @@ const Index = () => {
         />
       </div>
       
-      <div className="mt-10 mb-6">
+      {/* Replace the old feature cards section with our new ServicesList component */}
+      <ServicesList />
+      
+      {/* Keep the old feature cards section, but hidden from view since it might be used elsewhere */}
+      <div className="hidden">
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Nos services</h2>
         {isMobile ? (
           <div className="overflow-x-auto pb-4 -mx-4 px-4">

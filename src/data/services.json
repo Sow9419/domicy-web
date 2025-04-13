@@ -1,3 +1,4 @@
+
 {
   "heroServices": [
     {
@@ -26,6 +27,33 @@
       "buttonText": "Publier une annonce",
       "buttonLink": "/creer-service",
       "category": "Publicité"
+    },
+    {
+      "id": "4",
+      "title": "Services de Décoration Intérieure",
+      "description": "Transformez votre espace avec nos services de décoration professionnels",
+      "imageUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+      "buttonText": "Nos designs",
+      "buttonLink": "/services/decoration",
+      "category": "Décoration"
+    },
+    {
+      "id": "5",
+      "title": "Conseils Immobiliers Personnalisés",
+      "description": "Bénéficiez de l'expertise de nos conseillers pour vos projets immobiliers",
+      "imageUrl": "https://images.unsplash.com/photo-1556155092-490a1ba16284?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+      "buttonText": "Prendre rendez-vous",
+      "buttonLink": "/services/conseil",
+      "category": "Conseil"
+    },
+    {
+      "id": "6",
+      "title": "Service de Déménagement Fiable",
+      "description": "Faites confiance à nos professionnels pour un déménagement sans stress",
+      "imageUrl": "https://images.unsplash.com/photo-1600518497087-6dcda3469582?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+      "buttonText": "Réserver maintenant",
+      "buttonLink": "/services/demenagement",
+      "category": "Déménagement"
     }
   ],
   "featureCards": [
