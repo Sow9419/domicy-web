@@ -91,6 +91,11 @@ const Header = () => {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50 w-full">
       <div className="flex items-center justify-between h-16 sm:h-20 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex items-center flex-1">
+          {isMobile && (
+            <Link to="/" className="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-3">
+              <span className="text-white font-bold text-lg">dy</span>
+            </Link>
+          )}
           <div className="flex-1 max-w-2xl mx-auto px-0 sm:px-4 relative">
             {/* Barre de recherche avec autocomplétion et bouton de filtres */}
             <form onSubmit={handleSearch} className="relative flex items-center">
@@ -336,16 +341,7 @@ const Header = () => {
             <Button variant="ghost" size="sm" className="text-sm whitespace-nowrap">
               Mettre mon logement sur Logo
             </Button>
-          ) : (
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-9 w-9 rounded-full"
-              onClick={() => setShowFilters(true)}
-            >
-              <Search size={20} />
-            </Button>
-          )}
+          ) : null}
           
           <AuthButtons />
         </div>
