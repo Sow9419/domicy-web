@@ -93,13 +93,13 @@ const Header = () => {
               <Popover open={openLocationPopover} onOpenChange={setOpenLocationPopover}>
                 <div className="relative w-full">
                   <div className="absolute left-3 text-gray-400 z-10 top-1/2 -translate-y-1/2">
-                    <Search size={18} />
+                    <Search size={20} />
                   </div>
                   <PopoverTrigger asChild>
                     <motion.div className="w-full" whileTap={{
                     scale: 0.98
                   }}>
-                      <Input type="text" placeholder="Rechercher une destination" className="w-full pl-10 pr-12 py-2 rounded-full border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-primary/30 focus:border-primary" value={searchTerm} onChange={e => {
+                      <Input type="text" placeholder="Rechercher une destination" className="w-full pl-10 pr-12 py-3 h-12 rounded-full border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 focus:ring-2 focus:ring-primary/30 focus:border-primary" value={searchTerm} onChange={e => {
                       setSearchTerm(e.target.value);
                       if (e.target.value) setOpenLocationPopover(true);
                     }} />
@@ -107,8 +107,14 @@ const Header = () => {
                     </motion.div>
                   </PopoverTrigger>
                   <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8 text-gray-500" onClick={() => setShowFilters(!showFilters)}>
-                      <Sliders size={18} />
+                    <Button 
+                      type="button"
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-9 w-9 text-gray-500"
+                      onClick={() => setShowFilters(!showFilters)}
+                    >
+                      <Sliders size={20} />
                     </Button>
                   </div>
                 </div>
