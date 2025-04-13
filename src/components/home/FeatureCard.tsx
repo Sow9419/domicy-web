@@ -16,26 +16,28 @@ interface FeatureCardProps {
 
 const FeatureCard = ({ title, description, imageUrl, linkUrl, buttonText }: FeatureCardProps) => {
   return (
-    <div className="relative rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-500">
+    <div className="relative rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-500 w-full h-[260px] md:h-[300px]">
       <div className="absolute inset-0">
         <img src={imageUrl} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/90" />
       </div>
       
-      <div className="relative p-6 md:p-8 flex flex-col h-full min-h-[300px] justify-end">
-        <h3 className="text-white text-2xl md:text-3xl font-bold mb-2">{title}</h3>
-        <p className="text-white/90 mb-6 line-clamp-2">{description}</p>
+      <div className="relative p-5 md:p-6 flex flex-col h-full justify-between">
+        <div className="mt-4 md:mt-6">
+          <h3 className="text-white text-xl md:text-2xl font-bold mb-2">{title}</h3>
+          <p className="text-white/90 mb-4 line-clamp-3">{description}</p>
+        </div>
         <Link 
           to={linkUrl}
-          className="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium px-5 py-3 rounded-lg transition-all duration-300 self-start group-hover:translate-x-2"
+          className="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium px-4 py-2 rounded-lg transition-all duration-300 self-start group-hover:translate-x-2"
         >
           <span>{buttonText}</span>
           <ArrowRight className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </div>
-  );
-};
+  );}
+
 
 export const ServicesList = () => {
   const { getHeroServices } = useServices();
@@ -88,10 +90,10 @@ export const ServicesList = () => {
           {services.map((service, index) => (
             <motion.div 
               key={service.id || index} 
-              className="w-[300px] flex-shrink-0"
+              className="w-[320px] md:w-[350px] flex-shrink-0"
               variants={itemVariants}
               whileHover={{ 
-                y: -8,
+                y: -5,
                 transition: { duration: 0.3 }
               }}
             >
@@ -123,30 +125,33 @@ const ServiceCard = ({
   buttonText 
 }: HeroServiceType) => {
   return (
-    <div className="rounded-xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition-all duration-300 h-[380px] flex flex-col">
-      <div className="h-48 overflow-hidden relative">
+    <div className="relative rounded-xl overflow-hidden group hover:shadow-xl transition-all duration-500 h-[280px] md:h-[320px] w-full">
+      <div className="absolute inset-0">
         <img 
           src={imageUrl} 
           alt={title} 
-          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
         />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/90" />
+      </div>
+      
+      <div className="relative p-5 flex flex-col h-full justify-between">
         {category && (
-          <span className="absolute top-4 left-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium border border-white/30">
+          <span className="absolute top-3 left-3 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-medium border border-white/30">
             {category}
           </span>
         )}
-      </div>
-      
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2">{title}</h3>
-        <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">{description}</p>
+        <div className="mt-6 md:mt-8">
+          <h3 className="text-white text-xl font-bold mb-2 line-clamp-2">{title}</h3>
+          <p className="text-white/90 mb-4 line-clamp-3">{description}</p>
+        </div>
         
         <Link
           to={id ? `/service/${id}` : buttonLink}
-          className="mt-auto inline-flex items-center justify-center bg-primary/10 hover:bg-primary/20 text-primary font-medium px-4 py-2 rounded-lg transition-all duration-300 self-start"
+          className="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium px-4 py-2 rounded-lg transition-all duration-300 self-start group-hover:translate-x-2"
         >
           {buttonText}
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="ml-2 h-4 w-4 transition-all duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </div>
