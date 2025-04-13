@@ -87,7 +87,7 @@ const Header = () => {
           {isMobile && <Link to="/" className="bg-primary rounded-full w-10 h-10 flex items-center justify-center mr-1">
               <span className="text-white font-bold text-lg">dy</span>
             </Link>}
-          <div className="flex-1 max-w-2xl mx-auto px-0 sm:px-4 relative">
+          <div className="flex-1 max-w-2xl mx-auto px-0 sm:px-4 relative pr-1">
             {/* Barre de recherche avec autocomplétion et bouton de filtres */}
             <form onSubmit={handleSearch} className="relative flex items-center">
               <Popover open={openLocationPopover} onOpenChange={setOpenLocationPopover}>
