@@ -92,7 +92,7 @@ const PropertyEquipment = ({ equipments }: PropertyEquipmentProps) => {
   return (
     <div className="my-6">
       <h2 className="text-xl font-semibold mb-4">Équipements</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 equipment-grid">
         {displayEquipments.map((equipment, index) => (
           <Equipment 
             key={index} 
